@@ -1,0 +1,21 @@
+{
+  "name": "thanh-hau-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend API cho website Sieu thi sua Thanh Hau",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test tests/"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0"
+  }
+}
