@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mã giảm giá - Quản trị Thành Hậu</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <script src="../assets/js/env.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="../assets/css/tokens.css" />
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <link rel="stylesheet" href="../assets/css/admin.css" />
+</head>
+<body data-admin-page="coupons">
+  <div id="admin-shell"></div>
+
+  <main class="admin-content">
+    <div class="admin-toolbar">
+      <h1 class="page-title">Mã giảm giá</h1>
+      <button type="button" class="btn btn--primary" data-add-coupon>+ Thêm mã giảm giá</button>
+    </div>
+
+    <div class="admin-form-panel" data-coupon-form-panel hidden>
+      <h2 class="admin-form-panel__heading" data-coupon-form-heading>Thêm mã giảm giá mới</h2>
+      <div class="alert alert--danger" data-coupon-form-error hidden></div>
+      <form data-coupon-form novalidate>
+        <input type="hidden" name="couponId" />
+        <div class="field-row">
+          <div class="field">
+            <label class="field__label" for="c-code">Mã giảm giá</label>
+            <input class="input" id="c-code" name="code" required style="text-transform:uppercase" />
+          </div>
+          <div class="field">
+            <label class="field__label" for="c-desc">Mô tả</label>
+            <input class="input" id="c-desc" name="description" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label class="field__label" for="c-type">Loại giảm giá</label>
+            <select class="select" id="c-type" name="discount_type">
+              <option value="percentage">Phần trăm (%)</option>
+              <option value="fixed">Số tiền cố định (đ)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="c-value">Giá trị giảm</label>
+            <input class="input" type="number" min="0" id="c-value" name="discount_value" required />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label class="field__label" for="c-min">Đơn tối thiểu (đ)</label>
+            <input class="input" type="number" min="0" id="c-min" name="min_order_amount" value="0" />
+          </div>
+          <div class="field">
+            <label class="field__label" for="c-max">Giảm tối đa (đ, cho loại %)</label>
+            <input class="input" type="number" min="0" id="c-max" name="max_discount_amount" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="field__label" for="c-limit">Giới hạn lượt sử dụng (để trống = không giới hạn)</label>
+          <input class="input" type="number" min="0" id="c-limit" name="usage_limit" />
+        </div>
+        <label class="admin-form__checkbox">
+          <input type="checkbox" name="is_active" checked /> Đang hoạt động
+        </label>
+        <div class="admin-form__actions">
+          <button type="submit" class="btn btn--primary">Lưu mã giảm giá</button>
+          <button type="button" class="btn btn--outline" data-cancel-coupon>Hủy</button>
+        </div>
+      </form>
+    </div>
+
+    <div data-coupons-table></div>
+  </main>
+
+  <script type="module" src="../assets/js/admin/admin-include.js"></script>
+  <script type="module" src="../assets/js/admin/coupons.js"></script>
+</body>
+</html>

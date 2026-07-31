@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cửa hàng - Siêu thị sữa Thành Hậu</title>
+  <meta name="description" content="Toàn bộ sản phẩm sữa bột, sữa tươi, sữa bầu và đồ dùng cho bé tại Siêu thị sữa Thành Hậu." />
+
+  <script src="./assets/js/env.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="./assets/css/tokens.css" />
+  <link rel="stylesheet" href="./assets/css/base.css" />
+  <link rel="stylesheet" href="./assets/css/components.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/pages/shop.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="shop-page container page-section">
+    <div class="shop-page__header">
+      <h1 class="page-title">Cửa hàng</h1>
+      <div class="shop-page__toolbar">
+        <span class="shop-page__count" data-result-count>Đang tải sản phẩm...</span>
+        <label class="sr-only" for="sort-select">Sắp xếp</label>
+        <select id="sort-select" class="select" data-sort-select>
+          <option value="newest">Mới nhất</option>
+          <option value="price_asc">Giá: thấp đến cao</option>
+          <option value="price_desc">Giá: cao đến thấp</option>
+          <option value="name_asc">Tên: A-Z</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="shop-page__layout">
+      <aside class="shop-filters">
+        <h2 class="shop-filters__heading">Danh mục</h2>
+        <ul class="shop-filters__list" data-category-filter>
+          <li class="skeleton shop-filters__skeleton"></li>
+          <li class="skeleton shop-filters__skeleton"></li>
+          <li class="skeleton shop-filters__skeleton"></li>
+        </ul>
+      </aside>
+
+      <div class="shop-page__main">
+        <div class="product-grid" data-product-grid>
+          <div class="skeleton product-card-skeleton"></div>
+          <div class="skeleton product-card-skeleton"></div>
+          <div class="skeleton product-card-skeleton"></div>
+          <div class="skeleton product-card-skeleton"></div>
+          <div class="skeleton product-card-skeleton"></div>
+          <div class="skeleton product-card-skeleton"></div>
+        </div>
+        <nav class="pagination" data-pagination aria-label="Phân trang"></nav>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script type="module" src="./assets/js/lib/include.js"></script>
+  <script type="module" src="./assets/js/pages/shop.js"></script>
+</body>
+</html>

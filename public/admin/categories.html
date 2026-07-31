@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danh mục - Quản trị Thành Hậu</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <script src="../assets/js/env.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="../assets/css/tokens.css" />
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <link rel="stylesheet" href="../assets/css/admin.css" />
+</head>
+<body data-admin-page="categories">
+  <div id="admin-shell"></div>
+
+  <main class="admin-content">
+    <div class="admin-toolbar">
+      <h1 class="page-title">Danh mục</h1>
+      <button type="button" class="btn btn--primary" data-add-category>+ Thêm danh mục</button>
+    </div>
+
+    <div class="admin-form-panel" data-category-form-panel hidden>
+      <h2 class="admin-form-panel__heading" data-category-form-heading>Thêm danh mục mới</h2>
+      <div class="alert alert--danger" data-category-form-error hidden></div>
+      <form data-category-form novalidate>
+        <input type="hidden" name="categoryId" />
+        <div class="field-row">
+          <div class="field">
+            <label class="field__label" for="cat-name">Tên danh mục</label>
+            <input class="input" id="cat-name" name="name" required />
+          </div>
+          <div class="field">
+            <label class="field__label" for="cat-slug">Slug (để trống để tự tạo)</label>
+            <input class="input" id="cat-slug" name="slug" />
+          </div>
+        </div>
+        <div class="field">
+          <label class="field__label" for="cat-desc">Mô tả</label>
+          <textarea class="textarea" id="cat-desc" name="description"></textarea>
+        </div>
+        <div class="field">
+          <label class="field__label" for="cat-image">URL ảnh</label>
+          <input class="input" id="cat-image" name="image_url" />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label class="field__label" for="cat-parent">Danh mục cha</label>
+            <select class="select" id="cat-parent" name="parent_id"></select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="cat-sort">Thứ tự</label>
+            <input class="input" type="number" id="cat-sort" name="sort_order" value="0" />
+          </div>
+        </div>
+        <label class="admin-form__checkbox">
+          <input type="checkbox" name="is_active" checked /> Hiển thị trên website
+        </label>
+        <div class="admin-form__actions">
+          <button type="submit" class="btn btn--primary">Lưu danh mục</button>
+          <button type="button" class="btn btn--outline" data-cancel-category>Hủy</button>
+        </div>
+      </form>
+    </div>
+
+    <div data-categories-table></div>
+  </main>
+
+  <script type="module" src="../assets/js/admin/admin-include.js"></script>
+  <script type="module" src="../assets/js/admin/categories.js"></script>
+</body>
+</html>

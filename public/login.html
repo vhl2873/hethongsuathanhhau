@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đăng nhập - Siêu thị sữa Thành Hậu</title>
+  <meta name="description" content="Đăng nhập tài khoản Siêu thị sữa Thành Hậu để theo dõi đơn hàng và địa chỉ giao hàng." />
+
+  <script src="./assets/js/env.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="./assets/css/tokens.css" />
+  <link rel="stylesheet" href="./assets/css/base.css" />
+  <link rel="stylesheet" href="./assets/css/components.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/pages/auth.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="container page-section">
+    <div class="auth-page">
+      <div class="card auth-card">
+        <h1 class="auth-card__title">Đăng nhập</h1>
+
+        <div class="alert alert--danger" data-form-error hidden></div>
+
+        <form data-login-form novalidate>
+          <div class="field">
+            <label class="field__label" for="email">Email</label>
+            <input class="input" type="email" id="email" name="email" required autocomplete="email" />
+          </div>
+          <div class="field">
+            <label class="field__label" for="password">Mật khẩu</label>
+            <input class="input" type="password" id="password" name="password" required autocomplete="current-password" />
+          </div>
+          <button type="submit" class="btn btn--primary auth-card__submit">Đăng nhập</button>
+        </form>
+
+        <p class="auth-card__footer">Chưa có tài khoản? <a href="./register.html">Đăng ký ngay</a></p>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script type="module" src="./assets/js/lib/include.js"></script>
+  <script type="module" src="./assets/js/pages/login.js"></script>
+</body>
+</html>

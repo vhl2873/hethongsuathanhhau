@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"c:/Users/levie/Downloads/sua\" && mkdir -p \\\\ *)",
+      "Bash(npm --version)",
+      "Bash(npm install *)",
+      "Bash(node --test tests/pricing.test.js tests/inventory.test.js)",
+      "Bash(node src/server.js)",
+      "Bash(node -e ' *)",
+      "Bash(curl -s -o /dev/null -w \"index.html: %{http_code}\\\\n\" http://localhost:5500/index.html)",
+      "Bash(curl -s -o /dev/null -w \"partials/header.html: %{http_code}\\\\n\" http://localhost:5500/partials/header.html)",
+      "Bash(curl -s -o /dev/null -w \"partials/footer.html: %{http_code}\\\\n\" http://localhost:5500/partials/footer.html)",
+      "Bash(curl -s -o /dev/null -w \"assets/js/lib/include.js: %{http_code}\\\\n\" http://localhost:5500/assets/js/lib/include.js)",
+      "Bash(npm ls *)",
+      "Bash(npx --yes playwright --version)",
+      "Bash(npm init *)",
+      "Bash(node check.mjs)",
+      "Bash(node check2.mjs)",
+      "Bash(node --test tests/*.test.js)",
+      "Bash(node --check public/assets/js/pages/home.js)",
+      "Bash(node --check public/assets/js/lib/reveal.js)",
+      "Bash(node --check public/assets/js/lib/validators.js)",
+      "Bash(node --check public/assets/js/pages/shop.js)",
+      "Bash(node --check public/assets/js/lib/api.js)",
+      "Bash(node --check public/assets/js/lib/format.js)"
+    ]
+  }
+}

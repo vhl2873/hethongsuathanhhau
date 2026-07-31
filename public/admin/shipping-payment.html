@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vận chuyển &amp; Thanh toán - Quản trị Thành Hậu</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <script src="../assets/js/env.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="../assets/css/tokens.css" />
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <link rel="stylesheet" href="../assets/css/admin.css" />
+</head>
+<body data-admin-page="shipping-payment">
+  <div id="admin-shell"></div>
+
+  <main class="admin-content">
+    <h1 class="page-title">Vận chuyển &amp; Thanh toán</h1>
+
+    <section data-shipping-section>
+      <div class="admin-toolbar">
+        <h2 class="admin-form-panel__heading" style="margin-bottom:0">Phương thức vận chuyển</h2>
+        <button type="button" class="btn btn--primary" data-add>+ Thêm phương thức</button>
+      </div>
+
+      <div class="admin-form-panel" data-form-panel hidden>
+        <h3 class="admin-form-panel__heading" data-form-heading>Thêm phương thức vận chuyển mới</h3>
+        <div class="alert alert--danger" data-form-error hidden></div>
+        <form data-form novalidate>
+          <input type="hidden" name="itemId" />
+          <div class="field-row">
+            <div class="field">
+              <label class="field__label">Tên</label>
+              <input class="input" name="name" required />
+            </div>
+            <div class="field">
+              <label class="field__label">Phí (đ)</label>
+              <input class="input" type="number" min="0" name="fee" value="0" required />
+            </div>
+          </div>
+          <div class="field">
+            <label class="field__label">Mô tả</label>
+            <input class="input" name="description" />
+          </div>
+          <div class="field">
+            <label class="field__label">Thứ tự</label>
+            <input class="input" type="number" name="sort_order" value="0" />
+          </div>
+          <label class="admin-form__checkbox"><input type="checkbox" name="is_active" checked /> Đang hoạt động</label>
+          <div class="admin-form__actions">
+            <button type="submit" class="btn btn--primary">Lưu</button>
+            <button type="button" class="btn btn--outline" data-cancel>Hủy</button>
+          </div>
+        </form>
+      </div>
+
+      <div data-table></div>
+    </section>
+
+    <section data-payment-section style="margin-top: var(--space-8)">
+      <div class="admin-toolbar">
+        <h2 class="admin-form-panel__heading" style="margin-bottom:0">Phương thức thanh toán</h2>
+        <button type="button" class="btn btn--primary" data-add>+ Thêm phương thức</button>
+      </div>
+
+      <div class="admin-form-panel" data-form-panel hidden>
+        <h3 class="admin-form-panel__heading" data-form-heading>Thêm phương thức thanh toán mới</h3>
+        <div class="alert alert--danger" data-form-error hidden></div>
+        <form data-form novalidate>
+          <input type="hidden" name="itemId" />
+          <div class="field">
+            <label class="field__label">Tên</label>
+            <input class="input" name="name" required />
+          </div>
+          <div class="field">
+            <label class="field__label">Mô tả</label>
+            <input class="input" name="description" />
+          </div>
+          <div class="field">
+            <label class="field__label">Thứ tự</label>
+            <input class="input" type="number" name="sort_order" value="0" />
+          </div>
+          <label class="admin-form__checkbox"><input type="checkbox" name="is_active" checked /> Đang hoạt động</label>
+          <div class="admin-form__actions">
+            <button type="submit" class="btn btn--primary">Lưu</button>
+            <button type="button" class="btn btn--outline" data-cancel>Hủy</button>
+          </div>
+        </form>
+      </div>
+
+      <div data-table></div>
+    </section>
+  </main>
+
+  <script type="module" src="../assets/js/admin/admin-include.js"></script>
+  <script type="module" src="../assets/js/admin/shipping-payment.js"></script>
+</body>
+</html>

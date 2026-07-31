@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Siêu thị sữa Thành Hậu - Sữa chính hãng cho cả gia đình</title>
+  <meta name="description"
+    content="Siêu thị sữa Thành Hậu - cung cấp sữa bột, sữa tươi, sữa bầu và đồ dùng cho bé chính hãng, giá tốt." />
+
+  <script src="./assets/js/env.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="./assets/css/tokens.css" />
+  <link rel="stylesheet" href="./assets/css/base.css" />
+  <link rel="stylesheet" href="./assets/css/components.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/pages/shop.css" />
+  <link rel="stylesheet" href="./assets/css/pages/blog.css" />
+  <link rel="stylesheet" href="./assets/css/pages/home.css" />
+</head>
+
+<body>
+  <div id="site-header"></div>
+
+  <main>
+    <section class="hero-carousel" data-carousel>
+      <div class="hero hero-carousel__slide is-active" data-carousel-slide>
+        <div class="container hero-carousel__inner">
+          <div class="hero__copy">
+            <h1 class="hero__title">Sữa chính hãng,<br />yên tâm cho cả nhà.</h1>
+            <p class="hero__subtitle">Sữa bột, sữa tươi, sữa bầu và đồ dùng cho bé - nguồn gốc rõ ràng, giao tận nơi.
+            </p>
+            <a class="btn btn--primary hero__cta" href="./shop.html">Mua sắm ngay</a>
+          </div>
+          <div class="hero__media">
+            <img src="./assets/img/nutifood-growplus-do-850g.jpg" alt="Nutifood GrowPLUS+ Đỏ 850g" width="700"
+              height="820" loading="eager" />
+          </div>
+        </div>
+      </div>
+
+      <div class="hero hero-carousel__slide" data-carousel-slide>
+        <div class="container hero-carousel__inner">
+          <div class="hero__copy">
+            <h1 class="hero__title">Đa dạng thương hiệu<br />uy tín hàng đầu.</h1>
+            <p class="hero__subtitle">Nutifood, Vinamilk, Friso, Abbott, Nestlé... đầy đủ lựa chọn cho mọi lứa tuổi.</p>
+            <a class="btn btn--primary hero__cta" href="./shop.html">Xem tất cả sản phẩm</a>
+          </div>
+          <div class="hero__media">
+            <img src="./assets/img/friso-gold-4-850g.jpg" alt="Friso Gold 4 850g" width="700" height="820"
+              loading="lazy" />
+          </div>
+        </div>
+      </div>
+
+      <div class="hero hero-carousel__slide" data-carousel-slide>
+        <div class="container hero-carousel__inner">
+          <div class="hero__copy">
+            <h1 class="hero__title">Giao hàng nhanh,<br />đổi trả dễ dàng.</h1>
+            <p class="hero__subtitle">Đóng gói cẩn thận, hỗ trợ đổi trả trong 7 ngày nếu sản phẩm lỗi do nhà sản xuất.
+            </p>
+            <a class="btn btn--primary hero__cta" href="#featured">Xem sản phẩm nổi bật</a>
+          </div>
+          <div class="hero__media">
+            <img src="./assets/img/vinamilk-optimum-gold-1.jpg" alt="Vinamilk Optimum Gold" width="700" height="820"
+              loading="lazy" />
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="hero-carousel__arrow hero-carousel__arrow--prev" data-carousel-prev
+        aria-label="Slide trước">&#8249;</button>
+      <button type="button" class="hero-carousel__arrow hero-carousel__arrow--next" data-carousel-next
+        aria-label="Slide sau">&#8250;</button>
+      <div class="hero-carousel__dots" data-carousel-dots></div>
+    </section>
+
+    <section class="trust-row container" data-reveal>
+      <div class="trust-row__item">
+        <h3>Hàng chính hãng</h3>
+        <p>Nhập trực tiếp từ nhà phân phối, có tem chống hàng giả.</p>
+      </div>
+      <div class="trust-row__item">
+        <h3>Giao nhanh, đóng gói cẩn thận</h3>
+        <p>Đảm bảo sản phẩm nguyên vẹn khi đến tay khách hàng.</p>
+      </div>
+      <div class="trust-row__item">
+        <h3>Đổi trả trong 7 ngày</h3>
+        <p>Hỗ trợ đổi trả nếu sản phẩm lỗi do nhà sản xuất.</p>
+      </div>
+    </section>
+
+    <section class="page-section container" id="featured" data-reveal>
+      <div class="home-section__header">
+        <h2 class="page-title">Sản phẩm nổi bật</h2>
+        <a class="home-section__more" href="./shop.html">Xem tất cả &rarr;</a>
+      </div>
+      <div class="product-grid" data-featured-grid>
+        <div class="skeleton product-card-skeleton"></div>
+        <div class="skeleton product-card-skeleton"></div>
+        <div class="skeleton product-card-skeleton"></div>
+        <div class="skeleton product-card-skeleton"></div>
+      </div>
+    </section>
+
+    <section class="page-section container" id="blog" data-reveal>
+      <div class="home-section__header">
+        <h2 class="page-title">Tin tức &amp; mẹo dinh dưỡng</h2>
+        <a class="home-section__more" href="./blog.html">Xem tất cả &rarr;</a>
+      </div>
+      <div class="blog-grid" data-home-blog-grid>
+        <div class="skeleton blog-card-skeleton"></div>
+        <div class="skeleton blog-card-skeleton"></div>
+        <div class="skeleton blog-card-skeleton"></div>
+      </div>
+    </section>
+
+    <section class="page-section container testimonial-section" data-reveal>
+      <div class="home-section__header">
+        <div>
+          <h2 class="page-title">Khách hàng nói gì về chúng tôi</h2>
+          <p class="testimonial-section__note">Nội dung minh hoạ giao diện, chưa phải đánh giá từ khách hàng thực tế.</p>
+        </div>
+      </div>
+      <div class="testimonial-grid">
+        <article class="card testimonial-card">
+          <span class="testimonial-card__badge">Mẫu minh hoạ</span>
+          <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+          <p class="testimonial-card__quote">"Đặt sữa cho con buổi sáng, chiều đã nhận được hàng. Đóng gói cẩn thận, hộp sữa không bị móp."</p>
+          <p class="testimonial-card__author">Khách hàng tại TP.HCM</p>
+        </article>
+        <article class="card testimonial-card">
+          <span class="testimonial-card__badge">Mẫu minh hoạ</span>
+          <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+          <p class="testimonial-card__quote">"Giá cả hợp lý, có đầy đủ tem chống hàng giả nên yên tâm mua cho bé."</p>
+          <p class="testimonial-card__author">Khách hàng tại Hà Nội</p>
+        </article>
+        <article class="card testimonial-card">
+          <span class="testimonial-card__badge">Mẫu minh hoạ</span>
+          <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+          <p class="testimonial-card__quote">"Nhân viên tư vấn nhiệt tình, giúp chọn đúng loại sữa phù hợp với độ tuổi của con."</p>
+          <p class="testimonial-card__author">Khách hàng tại Đà Nẵng</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="brand-strip container" data-reveal>
+      <p class="brand-strip__heading">Thương hiệu chúng tôi phân phối</p>
+      <div class="brand-strip__row">
+        <span class="brand-strip__name">Nutifood</span>
+        <span class="brand-strip__name">Vinamilk</span>
+        <span class="brand-strip__name">Friso</span>
+        <span class="brand-strip__name">Abbott</span>
+        <span class="brand-strip__name">Nestlé</span>
+        <span class="brand-strip__name">Anlene</span>
+        <span class="brand-strip__name">Kun</span>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script type="module" src="./assets/js/lib/include.js"></script>
+  <script type="module" src="./assets/js/pages/home.js"></script>
+</body>
+
+</html>

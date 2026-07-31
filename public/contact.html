@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liên hệ - Siêu thị sữa Thành Hậu</title>
+  <meta name="description" content="Liên hệ với Siêu thị sữa Thành Hậu để được tư vấn và hỗ trợ." />
+
+  <script src="./assets/js/env.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="./assets/css/tokens.css" />
+  <link rel="stylesheet" href="./assets/css/base.css" />
+  <link rel="stylesheet" href="./assets/css/components.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/pages/contact.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="container page-section">
+    <h1 class="page-title">Liên hệ</h1>
+
+    <div class="contact-layout">
+      <section class="card contact-info">
+        <h2 class="contact-info__heading">Thông tin cửa hàng</h2>
+        <p data-store-address>Đang tải thông tin cửa hàng...</p>
+        <p>Hotline: <a data-store-hotline href="#"></a></p>
+        <p>Email: <a data-store-email-link href="#"><span data-store-email></span></a></p>
+        <p data-store-hours></p>
+      </section>
+
+      <section class="card contact-form-panel">
+        <h2 class="contact-info__heading">Gửi liên hệ cho chúng tôi</h2>
+        <div class="alert alert--success" data-form-success hidden></div>
+        <div class="alert alert--danger" data-form-error hidden></div>
+
+        <form data-contact-form novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label class="field__label" for="c-name">Họ tên</label>
+              <input class="input" id="c-name" name="name" required />
+            </div>
+            <div class="field">
+              <label class="field__label" for="c-email">Email</label>
+              <input class="input" type="email" id="c-email" name="email" required />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label class="field__label" for="c-phone">Số điện thoại (không bắt buộc)</label>
+              <input class="input" id="c-phone" name="phone" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="c-subject">Chủ đề (không bắt buộc)</label>
+              <input class="input" id="c-subject" name="subject" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="field__label" for="c-message">Nội dung</label>
+            <textarea class="textarea" id="c-message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary">Gửi liên hệ</button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script type="module" src="./assets/js/lib/include.js"></script>
+  <script type="module" src="./assets/js/pages/contact.js"></script>
+</body>
+</html>

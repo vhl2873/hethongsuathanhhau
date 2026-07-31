@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banner - Quản trị Thành Hậu</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <script src="../assets/js/env.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="../assets/css/tokens.css" />
+  <link rel="stylesheet" href="../assets/css/base.css" />
+  <link rel="stylesheet" href="../assets/css/components.css" />
+  <link rel="stylesheet" href="../assets/css/admin.css" />
+</head>
+<body data-admin-page="banners">
+  <div id="admin-shell"></div>
+
+  <main class="admin-content">
+    <div class="admin-toolbar">
+      <h1 class="page-title">Banner</h1>
+      <button type="button" class="btn btn--primary" data-add-banner>+ Thêm banner</button>
+    </div>
+
+    <div class="admin-form-panel" data-banner-form-panel hidden>
+      <h2 class="admin-form-panel__heading" data-banner-form-heading>Thêm banner mới</h2>
+      <div class="alert alert--danger" data-banner-form-error hidden></div>
+      <form data-banner-form novalidate>
+        <input type="hidden" name="bannerId" />
+        <div class="field">
+          <label class="field__label" for="b-title">Tiêu đề (không bắt buộc)</label>
+          <input class="input" id="b-title" name="title" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="b-image">URL ảnh</label>
+          <input class="input" id="b-image" name="image_url" required />
+        </div>
+        <div class="field">
+          <label class="field__label" for="b-link">URL liên kết (không bắt buộc)</label>
+          <input class="input" id="b-link" name="link_url" />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label class="field__label" for="b-position">Vị trí hiển thị</label>
+            <select class="select" id="b-position" name="position">
+              <option value="home_hero">Trang chủ - Banner chính</option>
+              <option value="home_secondary">Trang chủ - Banner phụ</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="b-sort">Thứ tự</label>
+            <input class="input" type="number" id="b-sort" name="sort_order" value="0" />
+          </div>
+        </div>
+        <label class="admin-form__checkbox">
+          <input type="checkbox" name="is_active" checked /> Hiển thị trên website
+        </label>
+        <div class="admin-form__actions">
+          <button type="submit" class="btn btn--primary">Lưu banner</button>
+          <button type="button" class="btn btn--outline" data-cancel-banner>Hủy</button>
+        </div>
+      </form>
+    </div>
+
+    <div data-banners-table></div>
+  </main>
+
+  <script type="module" src="../assets/js/admin/admin-include.js"></script>
+  <script type="module" src="../assets/js/admin/banners.js"></script>
+</body>
+</html>
