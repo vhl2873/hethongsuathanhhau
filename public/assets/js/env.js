@@ -3,7 +3,7 @@
 // target (local/dev/prod) - edit the values below when deploying, no build
 // step required. Supabase anon key is safe to ship here (it's RLS-scoped).
 window.__APP_CONFIG__ = {
-  API_BASE_URL: 'http://localhost:3001',
+  API_BASE_URL: 'https://sua-du4c.onrender.com',
   SUPABASE_URL: 'https://mvvhdyaawrtdbyjiobau.supabase.co',
   SUPABASE_ANON_KEY: 'sb_publishable_zbQG8Ce_Q5pI4Lp8xlH9iQ_7SezclTy',
 };
