@@ -11,6 +11,17 @@ let categories = [];
 
 const root = document.querySelector('[data-products-root]');
 
+// Uploads a single image file to Supabase Storage via the admin API and
+// returns its public URL. Never uploads directly from the browser to
+// Storage - always goes through the server so the service-role key stays
+// server-side and requireAdmin gates who can write to the bucket.
+async function uploadImageFile(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  const result = await api.post('/api/admin/storage/upload', formData, { token });
+  return result.url;
+}
+
 function debounce(fn, delay) {
   let timer;
   return (...args) => {
@@ -182,6 +193,18 @@ async function renderDetail(productId) {
         <label class="admin-form__checkbox">
           <input type="checkbox" name="is_featured" ${product?.is_featured ? 'checked' : ''} /> Sản phẩm nổi bật
         </label>
+
+        ${
+          product
+            ? ''
+            : `
+        <div class="field">
+          <label class="field__label" for="p-images">Ảnh sản phẩm * (chọn ít nhất 1 ảnh, ảnh đầu tiên sẽ là ảnh chính)</label>
+          <input class="input" type="file" id="p-images" name="images" accept="image/jpeg,image/png,image/webp,image/gif" multiple required />
+          <span class="field__error" data-error="images"></span>
+        </div>`
+        }
+
         <div class="admin-form__actions">
           <button type="submit" class="btn btn--primary">${product ? 'Lưu thay đổi' : 'Tạo sản phẩm'}</button>
         </div>
@@ -218,12 +241,15 @@ async function renderDetail(productId) {
       <div class="admin-image-list" data-images-list></div>
       <form data-image-form>
         <div class="field-row">
-          <div class="field"><label class="field__label">URL ảnh</label><input class="input" type="url" name="url" required /></div>
+          <div class="field">
+            <label class="field__label">Chọn ảnh</label>
+            <input class="input" type="file" name="file" accept="image/jpeg,image/png,image/webp,image/gif" required />
+          </div>
           <div class="field"><label class="field__label">Mô tả ảnh (alt)</label><input class="input" name="alt_text" /></div>
         </div>
         <label class="admin-form__checkbox"><input type="checkbox" name="is_primary" /> Đặt làm ảnh chính</label>
         <div class="alert alert--danger" data-image-form-error hidden></div>
-        <button type="submit" class="btn btn--primary">+ Thêm ảnh</button>
+        <button type="submit" class="btn btn--primary">+ Tải ảnh lên</button>
       </form>
     </div>`
         : ''
@@ -240,10 +266,12 @@ async function renderDetail(productId) {
 function wireProductForm(product) {
   const form = root.querySelector('[data-product-form]');
   const formError = root.querySelector('[data-product-form-error]');
+  const imagesInput = root.querySelector('#p-images');
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     formError.hidden = true;
+    root.querySelectorAll('[data-error]').forEach((el) => (el.textContent = ''));
 
     const formData = new FormData(form);
     const payload = {
@@ -259,21 +287,44 @@ function wireProductForm(product) {
       is_featured: formData.get('is_featured') === 'on',
     };
 
+    // New products must ship with at least one real image - no fake/blank
+    // placeholder products in the catalog.
+    if (!product) {
+      const files = Array.from(imagesInput.files);
+      if (!files.length) {
+        const errorEl = root.querySelector('[data-error="images"]');
+        if (errorEl) errorEl.textContent = 'Vui lòng chọn ít nhất 1 ảnh cho sản phẩm.';
+        return;
+      }
+    }
+
     const submitBtn = form.querySelector('button[type="submit"]');
     submitBtn.disabled = true;
+    submitBtn.textContent = product ? 'Đang lưu...' : 'Đang tạo sản phẩm...';
 
     try {
       if (product) {
         await api.put(`/api/admin/products/${product.id}`, payload, { token });
         await renderDetail(product.id);
-      } else {
-        const created = await api.post('/api/admin/products', payload, { token });
-        window.location.href = `./products.html?id=${created.id}`;
+        return;
       }
+
+      const created = await api.post('/api/admin/products', payload, { token });
+
+      const files = Array.from(imagesInput.files);
+      submitBtn.textContent = `Đang tải ảnh lên (0/${files.length})...`;
+      for (const [index, file] of files.entries()) {
+        const url = await uploadImageFile(file);
+        await api.post(`/api/admin/products/${created.id}/images`, { url, alt_text: created.name, is_primary: index === 0 }, { token });
+        submitBtn.textContent = `Đang tải ảnh lên (${index + 1}/${files.length})...`;
+      }
+
+      window.location.href = `./products.html?id=${created.id}`;
     } catch (err) {
       formError.hidden = false;
       formError.textContent = err instanceof ApiError ? err.message : 'Không lưu được sản phẩm.';
       submitBtn.disabled = false;
+      submitBtn.textContent = product ? 'Lưu thay đổi' : 'Tạo sản phẩm';
     }
   });
 }
@@ -412,19 +463,32 @@ function wireImages(product) {
     event.preventDefault();
     formError.hidden = true;
     const formData = new FormData(form);
-    const payload = {
-      url: formData.get('url').trim(),
-      alt_text: formData.get('alt_text').trim(),
-      is_primary: formData.get('is_primary') === 'on',
-    };
+    const file = formData.get('file');
+    const altText = formData.get('alt_text').trim();
+    const isPrimary = formData.get('is_primary') === 'on';
+
+    if (!file || !file.size) {
+      formError.hidden = false;
+      formError.textContent = 'Vui lòng chọn 1 file ảnh.';
+      return;
+    }
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Đang tải lên...';
+
     try {
-      await api.post(`/api/admin/products/${product.id}/images`, payload, { token });
+      const url = await uploadImageFile(file);
+      await api.post(`/api/admin/products/${product.id}/images`, { url, alt_text: altText, is_primary: isPrimary }, { token });
       product = await api.get(`/api/admin/products/${product.id}`, { token });
       form.reset();
       renderImages();
     } catch (err) {
       formError.hidden = false;
       formError.textContent = err instanceof ApiError ? err.message : 'Không thêm được ảnh.';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = '+ Tải ảnh lên';
     }
   });
 

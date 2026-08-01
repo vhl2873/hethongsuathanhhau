@@ -1,7 +1,18 @@
-import { signIn, getSession } from '../auth.js';
+import { signIn, getSession, signInWithOAuth } from '../auth.js';
 
 const form = document.querySelector('[data-login-form]');
 const errorEl = document.querySelector('[data-form-error]');
+
+document.querySelectorAll('[data-oauth]').forEach((btn) => {
+  btn.addEventListener('click', async () => {
+    try {
+      await signInWithOAuth(btn.dataset.oauth);
+    } catch {
+      errorEl.hidden = false;
+      errorEl.textContent = 'Không đăng nhập được, vui lòng thử lại.';
+    }
+  });
+});
 
 function mapAuthError(err) {
   const message = err?.message || '';

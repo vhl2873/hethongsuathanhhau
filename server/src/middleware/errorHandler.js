@@ -13,6 +13,11 @@ export function errorHandler(err, req, res, next) { // eslint-disable-line no-un
     });
   }
 
+  if (err.name === 'MulterError') {
+    const message = err.code === 'LIMIT_FILE_SIZE' ? 'File ảnh vượt quá dung lượng cho phép (tối đa 5MB).' : 'Không tải file lên được.';
+    return res.status(400).json({ error: { code: err.code, message } });
+  }
+
   console.error(err);
   return res.status(500).json({
     error: { code: 'INTERNAL_ERROR', message: DEFAULT_MESSAGE },

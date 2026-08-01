@@ -10,14 +10,18 @@ export class ApiError extends Error {
 }
 
 async function request(path, { method = 'GET', body, token, headers, raw = false } = {}) {
+  // FormData (file uploads) must be sent as-is with no Content-Type header -
+  // the browser sets multipart/form-data plus the correct boundary itself.
+  const isFormData = body instanceof FormData;
+
   const res = await fetch(`${API_BASE_URL}${path}`, {
     method,
     headers: {
-      'Content-Type': 'application/json',
+      ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...headers,
     },
-    body: body !== undefined ? JSON.stringify(body) : undefined,
+    body: body === undefined ? undefined : isFormData ? body : JSON.stringify(body),
   });
 
   const isJson = res.headers.get('content-type')?.includes('application/json');

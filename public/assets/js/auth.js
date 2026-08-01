@@ -21,6 +21,18 @@ export async function signIn({ email, password }) {
   return data;
 }
 
+// Redirects the browser to the provider's consent screen; Supabase handles
+// the callback and session creation automatically (detectSessionInUrl is on
+// by default), landing the user back on redirectTo already signed in.
+export async function signInWithOAuth(provider) {
+  if (!supabase) throw new Error('Chưa cấu hình Supabase.');
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider,
+    options: { redirectTo: `${window.location.origin}/account.html` },
+  });
+  if (error) throw error;
+}
+
 export async function signOut() {
   if (!supabase) return;
   await supabase.auth.signOut();

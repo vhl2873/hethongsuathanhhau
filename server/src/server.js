@@ -28,6 +28,7 @@ import { adminContactsRouter } from './routes/admin/contacts.js';
 import { adminNewsletterRouter } from './routes/admin/newsletter.js';
 import { adminSettingsRouter } from './routes/admin/settings.js';
 import { adminContentRouter } from './routes/admin/content.js';
+import { adminStorageRouter } from './routes/admin/storage.js';
 
 const PORT = process.env.PORT || 3000;
 const CORS_ORIGINS = (process.env.CORS_ORIGINS || '').split(',').map((s) => s.trim()).filter(Boolean);
@@ -72,6 +73,7 @@ app.use('/api/admin/contacts', adminContactsRouter);
 app.use('/api/admin/newsletter', adminNewsletterRouter);
 app.use('/api/admin/settings', adminSettingsRouter);
 app.use('/api/admin/content', adminContentRouter);
+app.use('/api/admin/storage', adminStorageRouter);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
