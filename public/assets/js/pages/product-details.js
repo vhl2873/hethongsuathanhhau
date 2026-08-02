@@ -42,7 +42,7 @@ function renderFull() {
   const images = product.product_images.length ? product.product_images : [];
   const hasVariantChoice = product.product_variants.length > 1;
 
-  document.title = `${product.meta_title || product.name} - Siêu thị sữa Thành Hậu`;
+  document.title = `${product.meta_title || product.name} - Siêu Thị Sữa Thanh Hậu`;
 
   root.innerHTML = `
     <nav class="breadcrumb" aria-label="Breadcrumb">

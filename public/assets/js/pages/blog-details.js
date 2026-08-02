@@ -16,7 +16,7 @@ async function init() {
 
   try {
     const post = await api.get(`/api/posts/${encodeURIComponent(slug)}`);
-    document.title = `${post.meta_title || post.title} - Siêu thị sữa Thành Hậu`;
+    document.title = `${post.meta_title || post.title} - Siêu Thị Sữa Thanh Hậu`;
 
     root.innerHTML = `
       <nav class="breadcrumb" aria-label="Breadcrumb">

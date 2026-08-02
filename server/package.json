@@ -2,7 +2,7 @@
   "name": "thanh-hau-server",
   "version": "1.0.0",
   "private": true,
-  "description": "Backend API cho website Sieu thi sua Thanh Hau",
+  "description": "Backend API cho website Sieu Thi Sua Thanh Hau",
   "type": "module",
   "engines": {
     "node": ">=20"

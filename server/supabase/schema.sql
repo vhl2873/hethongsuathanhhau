@@ -1,5 +1,5 @@
 -- =====================================================================
--- Sieu thi sua Thanh Hau - Supabase schema (Postgres)
+-- Sieu Thi Sua Thanh Hau - Supabase schema (Postgres)
 -- Apply once via Supabase SQL editor / CLI. Idempotent-ish (safe to re-run
 -- on a fresh DB); not designed to be re-run against a populated DB.
 -- =====================================================================
@@ -605,8 +605,8 @@ insert into public.app_settings (key, value) values
   ('initial_admin_email', '""');
 
 insert into public.app_settings (key, value) values
-  ('store_name', '"Siêu thị sữa Thành Hậu"'),
-  ('store_address', '"123 Đường ABC, Quận 1, TP.HCM"'),
+  ('store_name', '"Siêu Thị Sữa Thanh Hậu"'),
+  ('store_address', '"Số 271/16 đường Ngô Chí Quốc, Khu phố 8, Phường Tam Bình, Thành phố Hồ Chí Minh"'),
   ('store_phone', '"1900 1234"'),
   ('store_hotline', '"0909 123 456"'),
   ('store_email', '"lienhe@thanhhau.vn"'),

@@ -4,6 +4,6 @@
 // step required. Supabase anon key is safe to ship here (it's RLS-scoped).
 window.__APP_CONFIG__ = {
   API_BASE_URL: 'https://sua-du4c.onrender.com',
-  SUPABASE_URL: 'https://mvvhdyaawrtdbyjiobau.supabase.co',
-  SUPABASE_ANON_KEY: 'sb_publishable_zbQG8Ce_Q5pI4Lp8xlH9iQ_7SezclTy',
+  SUPABASE_URL: 'https://fpgjjonlakaruseilisp.supabase.co',
+  SUPABASE_ANON_KEY: 'sb_publishable_p5og5iOHo59toGdmClszOg_zYvV2Fzz',
 };
