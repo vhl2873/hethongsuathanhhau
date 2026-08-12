@@ -17,7 +17,7 @@ async function request(path, { method = 'GET', body, token, headers, raw = false
   const res = await fetch(`${API_BASE_URL}${path}`, {
     method,
     headers: {
-      ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+      ...(body !== undefined && !isFormData ? { 'Content-Type': 'application/json' } : {}),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...headers,
     },
