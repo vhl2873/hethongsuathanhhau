@@ -145,6 +145,7 @@
 .post-detail__cover {
   width: 100%;
   aspect-ratio: 16 / 9;
+  max-height: 380px;
   object-fit: cover;
   border-radius: var(--radius-lg);
   margin-bottom: var(--space-4);
@@ -167,10 +168,81 @@
   font-size: var(--font-size-md);
   line-height: 1.85;
   color: var(--color-text-soft);
-  white-space: pre-line;
+}
+.post-detail__content > *:first-child {
+  margin-top: 0;
 }
 .post-detail__content p {
-  margin-bottom: var(--space-4);
+  margin: 0 0 var(--space-4);
+}
+.post-detail__content h2,
+.post-detail__content h3,
+.post-detail__content h4 {
+  color: var(--color-text);
+  font-weight: 800;
+  margin: var(--space-5) 0 var(--space-3);
+}
+.post-detail__content h2 {
+  font-size: var(--font-size-lg);
+  padding-left: var(--space-3);
+  border-left: 4px solid var(--color-primary);
+}
+.post-detail__content h3 {
+  font-size: var(--font-size-md);
+}
+.post-detail__content ul,
+.post-detail__content ol {
+  list-style: disc;
+  padding-left: 1.4rem;
+  margin: 0 0 var(--space-4);
+}
+.post-detail__content ol {
+  list-style: decimal;
+}
+.post-detail__content li {
+  margin-bottom: var(--space-2);
+}
+.post-detail__content img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  margin: var(--space-4) 0;
+}
+.post-detail__content blockquote {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-tint);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+}
+.post-detail__content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 var(--space-4);
+  font-size: var(--font-size-sm);
+}
+.post-detail__content th,
+.post-detail__content td {
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+}
+.post-detail__content th {
+  background: var(--color-surface-alt);
+  font-weight: 700;
+}
+.post-detail__foot {
+  margin: var(--space-5) 0 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Rail of other articles under a post. */
+.post-more {
+  max-width: 860px;
+  margin: 0 auto var(--space-4);
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: 1.15rem 1.25rem 1.25rem;
 }
 @media (max-width: 620px) {
   .post-detail {

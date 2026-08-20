@@ -93,7 +93,7 @@
   text-decoration: none;
 }
 .admin-sidebar__link.is-active {
-  background: rgba(30, 132, 73, 0.1);
+  background: var(--color-surface-tint);
   border-left-color: var(--color-primary);
   color: var(--color-primary-dark);
 }
@@ -319,7 +319,7 @@
   width: 34px;
   height: 34px;
   border-radius: var(--radius-md);
-  background: rgba(30, 132, 73, 0.1);
+  background: var(--color-surface-tint);
   color: var(--color-primary);
   margin-bottom: var(--space-3);
 }
