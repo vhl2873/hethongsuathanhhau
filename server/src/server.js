@@ -8,6 +8,7 @@ import { supabaseAdmin } from './lib/supabaseAdmin.js';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
 import { categoriesRouter } from './routes/categories.js';
 import { settingsRouter } from './routes/settings.js';
+import { couponsRouter } from './routes/coupons.js';
 import { productsRouter } from './routes/products.js';
 import { checkoutRouter } from './routes/checkout.js';
 import { cartRouter } from './routes/cart.js';
@@ -53,6 +54,7 @@ app.use(express.json());
 
 app.use('/api/categories', categoriesRouter);
 app.use('/api/settings', settingsRouter);
+app.use('/api/coupons', couponsRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/checkout', checkoutRouter);
 app.use('/api/cart', cartRouter);

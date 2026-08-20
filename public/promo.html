@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ưu đãi &amp; mã giảm giá - Siêu Thị Sữa Thanh Hậu</title>
+  <link rel="icon" type="image/png" href="./assets/img/logo.png" />
+  <link rel="apple-touch-icon" href="./assets/img/logo.png" />
+  <meta name="description" content="Mã giảm giá đang có và các sản phẩm đang giảm giá tại Siêu Thị Sữa Thanh Hậu." />
+
+  <script src="./assets/js/env.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="./assets/css/tokens.css" />
+  <link rel="stylesheet" href="./assets/css/base.css" />
+  <link rel="stylesheet" href="./assets/css/components.css" />
+  <link rel="stylesheet" href="./assets/css/layout.css" />
+  <link rel="stylesheet" href="./assets/css/pages/promo.css" />
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main class="container page-section promo">
+    <section class="promo-hero">
+      <div class="promo-hero__copy">
+        <span class="promo-hero__eyebrow">Ưu đãi tại Thanh Hậu</span>
+        <h1 class="promo-hero__title">Mã giảm giá và sản phẩm đang giảm</h1>
+        <p class="promo-hero__text">Toàn bộ mã còn hiệu lực và những sản phẩm đang bán dưới giá niêm yết, cập nhật trực
+          tiếp từ cửa hàng.</p>
+        <div class="promo-hero__actions">
+          <a class="btn btn--on-brand" href="#ma-giam-gia">Xem mã giảm giá</a>
+          <a class="btn btn--ghost-light" href="./shop.html">Mua sắm ngay</a>
+        </div>
+      </div>
+      <div class="promo-hero__media" data-hero-image></div>
+    </section>
+
+    <section class="panel" id="ma-giam-gia">
+      <div class="section-head">
+        <h2 class="section-head__title">Mã giảm giá đang có</h2>
+        <span class="section-head__note">Bấm “Sao chép” rồi dán mã ở bước thanh toán.</span>
+      </div>
+      <div class="voucher-grid" data-voucher-grid>
+        <div class="skeleton promo-voucher-skeleton"></div>
+        <div class="skeleton promo-voucher-skeleton"></div>
+        <div class="skeleton promo-voucher-skeleton"></div>
+        <div class="skeleton promo-voucher-skeleton"></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <h2 class="section-head__title">Sản phẩm đang giảm giá</h2>
+        <a class="section-head__more" href="./shop.html">Xem tất cả sản phẩm &rarr;</a>
+      </div>
+      <div class="product-grid product-grid--5" data-deals-grid></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <h2 class="section-head__title">Cách dùng mã giảm giá</h2>
+      </div>
+      <ol class="promo-steps">
+        <li>
+          <span class="promo-steps__num">1</span>
+          <div>
+            <h3>Sao chép mã</h3>
+            <p>Bấm “Sao chép” ở mã phù hợp với đơn hàng của bạn.</p>
+          </div>
+        </li>
+        <li>
+          <span class="promo-steps__num">2</span>
+          <div>
+            <h3>Chọn sản phẩm</h3>
+            <p>Thêm sữa vào giỏ. Nếu chưa chắc chọn loại nào, gọi hotline để được tư vấn.</p>
+          </div>
+        </li>
+        <li>
+          <span class="promo-steps__num">3</span>
+          <div>
+            <h3>Dán mã khi thanh toán</h3>
+            <p>Nhập mã vào ô “Mã giảm giá” ở giỏ hàng hoặc trang thanh toán để trừ trực tiếp vào đơn.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="consult-card promo-consult">
+      <div>
+        <p class="consult-card__title">Cần tư vấn trước khi mua?</p>
+        <p class="consult-card__text">Nhân viên cửa hàng giúp bạn chọn loại phù hợp với độ tuổi và thể trạng của bé.</p>
+      </div>
+      <div class="consult-card__actions">
+        <a class="btn btn--primary" data-store-zalo-link href="./contact.html" hidden>Chat Zalo</a>
+        <a class="btn btn--outline" data-store-hotline-link href="./contact.html"><span>Gọi <span data-store-hotline>hotline</span></span></a>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script type="module" src="./assets/js/lib/include.js"></script>
+  <script type="module" src="./assets/js/pages/promo.js"></script>
+</body>
+</html>

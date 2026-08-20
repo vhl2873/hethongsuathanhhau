@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tin tức - Siêu Thị Sữa Thanh Hậu</title>
+  <title>Tin tức &amp; mẹo dinh dưỡng - Siêu Thị Sữa Thanh Hậu</title>
   <link rel="icon" type="image/png" href="./assets/img/logo.png" />
   <link rel="apple-touch-icon" href="./assets/img/logo.png" />
   <meta name="description" content="Tin tức, kiến thức dinh dưỡng và chăm sóc bé từ Siêu Thị Sữa Thanh Hậu." />
@@ -22,9 +22,49 @@
   <div id="site-header"></div>
 
   <main class="container page-section">
-    <h1 class="page-title">Tin tức</h1>
-    <div class="blog-grid" data-blog-grid></div>
-    <nav class="pagination" data-pagination aria-label="Phân trang"></nav>
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Tin tức &amp; mẹo dinh dưỡng</h1>
+        <p class="page-lede">Kiến thức chọn sữa, cách pha và bảo quản, do nhân viên cửa hàng biên tập.</p>
+      </div>
+    </div>
+
+    <div class="blog-layout">
+      <div class="panel-stack">
+        <article class="panel blog-hero" data-featured-post hidden></article>
+
+        <section class="panel">
+          <div class="section-head">
+            <h2 class="section-head__title">Bài viết mới nhất</h2>
+          </div>
+          <div class="post-grid" data-blog-grid>
+            <div class="skeleton post-card-skeleton"></div>
+            <div class="skeleton post-card-skeleton"></div>
+            <div class="skeleton post-card-skeleton"></div>
+          </div>
+          <nav class="pagination" data-pagination aria-label="Phân trang"></nav>
+        </section>
+      </div>
+
+      <aside class="blog-aside">
+        <div class="panel" data-related-products-panel hidden>
+          <div class="section-head">
+            <h2 class="section-head__title">Sản phẩm nổi bật</h2>
+            <a class="section-head__more" href="./shop.html">Xem tất cả &rarr;</a>
+          </div>
+          <div class="blog-products" data-related-products></div>
+        </div>
+
+        <div class="consult-card">
+          <p class="consult-card__title">Hỏi nhân viên tư vấn</p>
+          <p class="consult-card__text">Nhắn tháng tuổi và tình trạng của bé để được gợi ý loại sữa phù hợp.</p>
+          <div class="consult-card__actions">
+            <a class="btn btn--primary btn--sm" data-store-zalo-link href="./contact.html" hidden>Chat Zalo</a>
+            <a class="btn btn--outline btn--sm" data-store-hotline-link href="./contact.html"><span>Gọi <span data-store-hotline>hotline</span></span></a>
+          </div>
+        </div>
+      </aside>
+    </div>
   </main>
 
   <div id="site-footer"></div>

@@ -19,146 +19,245 @@
   <link rel="stylesheet" href="./assets/css/base.css" />
   <link rel="stylesheet" href="./assets/css/components.css" />
   <link rel="stylesheet" href="./assets/css/layout.css" />
-  <link rel="stylesheet" href="./assets/css/pages/shop.css" />
-  <link rel="stylesheet" href="./assets/css/pages/blog.css" />
   <link rel="stylesheet" href="./assets/css/pages/home.css" />
 </head>
 
 <body>
   <div id="site-header"></div>
 
-  <main>
-    <section class="hero-carousel" data-carousel>
-      <div class="hero hero-carousel__slide is-active" data-carousel-slide>
-        <div class="container hero-carousel__inner">
-          <div class="hero__copy">
-            <h1 class="hero__title">Sữa chính hãng,<br />yên tâm cho cả nhà.</h1>
-            <p class="hero__subtitle">Sữa bột, sữa tươi, sữa bầu và đồ dùng cho bé - nguồn gốc rõ ràng, giao tận nơi.
-            </p>
-            <a class="btn btn--primary hero__cta" href="./shop.html">Mua sắm ngay</a>
+  <main class="home">
+    <!-- Top row: category rail, hero carousel, two category tiles -->
+    <section class="container home-top">
+      <nav class="home-rail" aria-label="Danh mục nổi bật">
+        <ul data-category-rail>
+          <li class="skeleton home-rail__skeleton"></li>
+          <li class="skeleton home-rail__skeleton"></li>
+          <li class="skeleton home-rail__skeleton"></li>
+          <li class="skeleton home-rail__skeleton"></li>
+          <li class="skeleton home-rail__skeleton"></li>
+          <li class="skeleton home-rail__skeleton"></li>
+        </ul>
+        <a class="home-rail__all" href="./shop.html">Xem tất cả danh mục &rarr;</a>
+      </nav>
+
+      <div class="home-hero" data-carousel>
+        <div class="home-hero__slide is-active" data-carousel-slide>
+          <div class="home-hero__copy">
+            <span class="home-hero__eyebrow">HÀNG CHÍNH HÃNG · CÓ TEM CHỐNG HÀNG GIẢ</span>
+            <h1 class="home-hero__title">Sữa chính hãng,<br />yên tâm cho cả nhà.</h1>
+            <p class="home-hero__text">Sữa bột, sữa tươi, sữa bầu và đồ dùng cho bé — nhập trực tiếp từ nhà phân phối,
+              nguồn gốc rõ ràng.</p>
+            <div class="home-hero__actions">
+              <a class="btn btn--on-brand" href="./shop.html">Mua sắm ngay</a>
+              <a class="btn btn--ghost-light" data-store-hotline-link href="./contact.html">Nhận tư vấn</a>
+            </div>
           </div>
-          <div class="hero__media">
-            <img src="./assets/img/nutifood-growplus-do-850g.jpg" alt="Nutifood GrowPLUS+ Đỏ 850g" width="700"
-              height="820" loading="eager" />
+          <div class="home-hero__media">
+            <img src="./assets/img/nutifood-growplus-do-850g.jpg" alt="Nutifood GrowPLUS+ Đỏ 850g" width="420"
+              height="420" loading="eager" />
           </div>
         </div>
-      </div>
 
-      <div class="hero hero-carousel__slide" data-carousel-slide>
-        <div class="container hero-carousel__inner">
-          <div class="hero__copy">
-            <h1 class="hero__title">Đa dạng thương hiệu<br />uy tín hàng đầu.</h1>
-            <p class="hero__subtitle">Nutifood, Vinamilk, Friso, Abbott, Nestlé... đầy đủ lựa chọn cho mọi lứa tuổi.</p>
-            <a class="btn btn--primary hero__cta" href="./shop.html">Xem tất cả sản phẩm</a>
+        <div class="home-hero__slide" data-carousel-slide>
+          <div class="home-hero__copy">
+            <span class="home-hero__eyebrow">NUTIFOOD · VINAMILK · FRISO · ABBOTT · NESTLÉ</span>
+            <h1 class="home-hero__title">Đa dạng thương hiệu<br />uy tín hàng đầu.</h1>
+            <p class="home-hero__text">Đầy đủ lựa chọn cho mọi lứa tuổi: sữa số 1–4, sữa tươi, sữa bầu và sữa cho người
+              lớn.</p>
+            <div class="home-hero__actions">
+              <a class="btn btn--on-brand" href="./shop.html">Xem tất cả sản phẩm</a>
+            </div>
           </div>
-          <div class="hero__media">
-            <img src="./assets/img/friso-gold-4-850g.jpg" alt="Friso Gold 4 850g" width="700" height="820"
+          <div class="home-hero__media">
+            <img src="./assets/img/friso-gold-4-850g.jpg" alt="Friso Gold 4 850g" width="420" height="420"
               loading="lazy" />
           </div>
         </div>
-      </div>
 
-      <div class="hero hero-carousel__slide" data-carousel-slide>
-        <div class="container hero-carousel__inner">
-          <div class="hero__copy">
-            <h1 class="hero__title">Giao hàng nhanh,<br />đổi trả dễ dàng.</h1>
-            <p class="hero__subtitle">Đóng gói cẩn thận, hỗ trợ đổi trả trong 7 ngày nếu sản phẩm lỗi do nhà sản xuất.
-            </p>
-            <a class="btn btn--primary hero__cta" href="#featured">Xem sản phẩm nổi bật</a>
+        <div class="home-hero__slide" data-carousel-slide>
+          <div class="home-hero__copy">
+            <span class="home-hero__eyebrow">GIAO NHANH · ĐÓNG GÓI CẨN THẬN</span>
+            <h1 class="home-hero__title">Giao hàng nhanh,<br />đổi trả dễ dàng.</h1>
+            <p class="home-hero__text">Đóng gói chống sốc để hộp sữa nguyên vẹn, hỗ trợ đổi trả trong 7 ngày nếu sản
+              phẩm lỗi do nhà sản xuất.</p>
+            <div class="home-hero__actions">
+              <a class="btn btn--on-brand" href="#featured">Xem sản phẩm nổi bật</a>
+            </div>
           </div>
-          <div class="hero__media">
-            <img src="./assets/img/vinamilk-optimum-gold-1.jpg" alt="Vinamilk Optimum Gold" width="700" height="820"
+          <div class="home-hero__media">
+            <img src="./assets/img/vinamilk-optimum-gold-1.jpg" alt="Vinamilk Optimum Gold" width="420" height="420"
               loading="lazy" />
           </div>
         </div>
+
+        <button type="button" class="home-hero__arrow home-hero__arrow--prev" data-carousel-prev
+          aria-label="Slide trước">&#8249;</button>
+        <button type="button" class="home-hero__arrow home-hero__arrow--next" data-carousel-next
+          aria-label="Slide sau">&#8250;</button>
+        <div class="home-hero__dots" data-carousel-dots></div>
       </div>
 
-      <button type="button" class="hero-carousel__arrow hero-carousel__arrow--prev" data-carousel-prev
-        aria-label="Slide trước">&#8249;</button>
-      <button type="button" class="hero-carousel__arrow hero-carousel__arrow--next" data-carousel-next
-        aria-label="Slide sau">&#8250;</button>
-      <div class="hero-carousel__dots" data-carousel-dots></div>
-    </section>
-
-    <section class="trust-row container" data-reveal>
-      <div class="trust-row__item">
-        <h3>Hàng chính hãng</h3>
-        <p>Nhập trực tiếp từ nhà phân phối, có tem chống hàng giả.</p>
-      </div>
-      <div class="trust-row__item">
-        <h3>Giao nhanh, đóng gói cẩn thận</h3>
-        <p>Đảm bảo sản phẩm nguyên vẹn khi đến tay khách hàng.</p>
-      </div>
-      <div class="trust-row__item">
-        <h3>Đổi trả trong 7 ngày</h3>
-        <p>Hỗ trợ đổi trả nếu sản phẩm lỗi do nhà sản xuất.</p>
+      <div class="home-tiles" data-category-tiles>
+        <div class="skeleton home-tile-skeleton"></div>
+        <div class="skeleton home-tile-skeleton"></div>
       </div>
     </section>
 
-    <section class="page-section container" id="featured" data-reveal>
-      <div class="home-section__header">
-        <h2 class="page-title">Sản phẩm nổi bật</h2>
-        <a class="home-section__more" href="./shop.html">Xem tất cả &rarr;</a>
-      </div>
-      <div class="product-grid" data-featured-grid>
-        <div class="skeleton product-card-skeleton"></div>
-        <div class="skeleton product-card-skeleton"></div>
-        <div class="skeleton product-card-skeleton"></div>
-        <div class="skeleton product-card-skeleton"></div>
-      </div>
-    </section>
-
-    <section class="page-section container" id="blog" data-reveal>
-      <div class="home-section__header">
-        <h2 class="page-title">Tin tức &amp; mẹo dinh dưỡng</h2>
-        <a class="home-section__more" href="./blog.html">Xem tất cả &rarr;</a>
-      </div>
-      <div class="blog-grid" data-home-blog-grid>
-        <div class="skeleton blog-card-skeleton"></div>
-        <div class="skeleton blog-card-skeleton"></div>
-        <div class="skeleton blog-card-skeleton"></div>
-      </div>
-    </section>
-
-    <section class="page-section container testimonial-section" data-reveal>
-      <div class="home-section__header">
+    <!-- Trust row -->
+    <section class="container home-trust" data-reveal>
+      <div class="home-trust__item">
+        <span class="home-trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9"
+            stroke-linecap="round">
+            <path d="M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6l7-3z"></path>
+            <path d="M9.2 12l2 2 3.6-4"></path>
+          </svg>
+        </span>
         <div>
-          <h2 class="page-title">Khách hàng nói gì về chúng tôi</h2>
-          <p class="testimonial-section__note">Nội dung minh hoạ giao diện, chưa phải đánh giá từ khách hàng thực tế.</p>
+          <h3>Hàng chính hãng</h3>
+          <p>Nhập trực tiếp từ nhà phân phối, có tem chống hàng giả.</p>
         </div>
       </div>
-      <div class="testimonial-grid">
-        <article class="card testimonial-card">
-          <span class="testimonial-card__badge">Mẫu minh hoạ</span>
-          <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
-          <p class="testimonial-card__quote">"Đặt sữa cho con buổi sáng, chiều đã nhận được hàng. Đóng gói cẩn thận, hộp sữa không bị móp."</p>
-          <p class="testimonial-card__author">Khách hàng tại TP.HCM</p>
-        </article>
-        <article class="card testimonial-card">
-          <span class="testimonial-card__badge">Mẫu minh hoạ</span>
-          <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
-          <p class="testimonial-card__quote">"Giá cả hợp lý, có đầy đủ tem chống hàng giả nên yên tâm mua cho bé."</p>
-          <p class="testimonial-card__author">Khách hàng tại Hà Nội</p>
-        </article>
-        <article class="card testimonial-card">
-          <span class="testimonial-card__badge">Mẫu minh hoạ</span>
-          <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
-          <p class="testimonial-card__quote">"Nhân viên tư vấn nhiệt tình, giúp chọn đúng loại sữa phù hợp với độ tuổi của con."</p>
-          <p class="testimonial-card__author">Khách hàng tại Đà Nẵng</p>
-        </article>
+      <div class="home-trust__item">
+        <span class="home-trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9"
+            stroke-linecap="round">
+            <rect x="2.5" y="7" width="11" height="9" rx="1.6"></rect>
+            <path d="M13.5 10h4l3 3v3h-7z"></path>
+            <circle cx="7" cy="18" r="1.7"></circle>
+            <circle cx="17" cy="18" r="1.7"></circle>
+          </svg>
+        </span>
+        <div>
+          <h3>Giao nhanh, đóng gói cẩn thận</h3>
+          <p>Hộp sữa nguyên vẹn khi đến tay bạn.</p>
+        </div>
+      </div>
+      <div class="home-trust__item">
+        <span class="home-trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9"
+            stroke-linecap="round">
+            <path d="M4 12a8 8 0 1 1 14.5 4.6"></path>
+            <path d="M4 6v6h6"></path>
+          </svg>
+        </span>
+        <div>
+          <h3>Đổi trả trong 7 ngày</h3>
+          <p>Nếu sản phẩm lỗi do nhà sản xuất.</p>
+        </div>
       </div>
     </section>
 
-    <section class="brand-strip container" data-reveal>
-      <p class="brand-strip__heading">Thương hiệu chúng tôi phân phối</p>
-      <div class="brand-strip__row">
-        <span class="brand-strip__name">Nutifood</span>
-        <span class="brand-strip__name">Vinamilk</span>
-        <span class="brand-strip__name">Friso</span>
-        <span class="brand-strip__name">Abbott</span>
-        <span class="brand-strip__name">Nestlé</span>
-        <span class="brand-strip__name">Anlene</span>
-        <span class="brand-strip__name">Kun</span>
+    <!-- Category icon grid -->
+    <section class="container" data-reveal>
+      <div class="panel">
+        <div class="section-head">
+          <h2 class="section-head__title">Mua theo danh mục</h2>
+          <a class="section-head__more" href="./shop.html">Xem tất cả &rarr;</a>
+        </div>
+        <div class="cat-grid" data-category-grid>
+          <div class="skeleton cat-grid__skeleton"></div>
+          <div class="skeleton cat-grid__skeleton"></div>
+          <div class="skeleton cat-grid__skeleton"></div>
+          <div class="skeleton cat-grid__skeleton"></div>
+          <div class="skeleton cat-grid__skeleton"></div>
+          <div class="skeleton cat-grid__skeleton"></div>
+          <div class="skeleton cat-grid__skeleton"></div>
+          <div class="skeleton cat-grid__skeleton"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Coupons: only rendered when the store has usable codes -->
+    <section class="container" data-voucher-section hidden>
+      <div class="panel">
+        <div class="section-head">
+          <h2 class="section-head__title">Mã giảm giá đang có</h2>
+          <a class="section-head__more" href="./promo.html">Xem tất cả mã &rarr;</a>
+        </div>
+        <div class="voucher-grid" data-voucher-grid></div>
+      </div>
+    </section>
+
+    <!-- Products currently priced below their list price -->
+    <section class="container" data-deals-section hidden>
+      <div class="panel panel--flush">
+        <div class="deals-band">
+          <div class="deals-band__title">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <path d="M13 2 5.5 13.5H11L10 22l8-11.5h-5.5L13 2z"></path>
+            </svg>
+            <h2>Đang giảm giá</h2>
+          </div>
+          <p class="deals-band__note">Giá bán hiện tại thấp hơn giá niêm yết.</p>
+          <a class="deals-band__link" href="./promo.html">Xem tất cả &rarr;</a>
+        </div>
+        <div class="deals-band__body">
+          <div class="product-grid product-grid--5" data-deals-grid></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured / newest / cheapest, all from /api/products -->
+    <section class="container" id="featured" data-reveal>
+      <div class="panel">
+        <div class="section-head">
+          <h2 class="section-head__title">Sản phẩm nổi bật</h2>
+          <div class="section-head__actions" data-featured-tabs>
+            <button type="button" class="chip is-active" data-tab-query="featured=true">Nổi bật</button>
+            <button type="button" class="chip" data-tab-query="sort=newest">Mới về</button>
+            <button type="button" class="chip" data-tab-query="sort=price_asc">Giá tốt</button>
+            <a class="section-head__more" href="./shop.html">Xem tất cả &rarr;</a>
+          </div>
+        </div>
+        <div class="product-grid product-grid--5" data-featured-grid></div>
+      </div>
+    </section>
+
+    <!-- Consult + brands -->
+    <section class="container home-duo" data-reveal>
+      <div class="panel home-consult">
+        <div class="section-head">
+          <h2 class="section-head__title">Chưa biết chọn loại nào?</h2>
+        </div>
+        <p class="home-consult__text">Nhắn tháng tuổi và cân nặng của bé, nhân viên cửa hàng sẽ gợi ý 2–3 lựa chọn phù
+          hợp và giải thích khác biệt giữa các dòng sữa.</p>
+        <div class="consult-card__actions">
+          <a class="btn btn--primary" data-store-zalo-link href="./contact.html" hidden>Chat Zalo</a>
+          <a class="btn btn--outline" data-store-hotline-link href="./contact.html"><span>Gọi <span data-store-hotline>hotline</span></span></a>
+          <a class="btn btn--outline" href="./faq.html">Câu hỏi thường gặp</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="section-head">
+          <h2 class="section-head__title">Thương hiệu phân phối</h2>
+        </div>
+        <div class="brand-grid">
+          <span>Nutifood</span>
+          <span>Vinamilk</span>
+          <span>Friso</span>
+          <span>Abbott</span>
+          <span>Nestlé</span>
+          <span>Anlene</span>
+          <span>Kun</span>
+          <span>Yomost</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog -->
+    <section class="container" id="blog" data-reveal>
+      <div class="panel">
+        <div class="section-head">
+          <h2 class="section-head__title">Tin tức &amp; mẹo dinh dưỡng</h2>
+          <a class="section-head__more" href="./blog.html">Xem tất cả &rarr;</a>
+        </div>
+        <div class="post-grid" data-home-blog-grid>
+          <div class="skeleton post-card-skeleton"></div>
+          <div class="skeleton post-card-skeleton"></div>
+          <div class="skeleton post-card-skeleton"></div>
+        </div>
       </div>
     </section>
   </main>

@@ -21,6 +21,7 @@ function formatProductSummary(row) {
     id: row.id,
     name: row.name,
     slug: row.slug,
+    brand: row.brand,
     base_price: row.base_price,
     compare_at_price: row.compare_at_price,
     is_featured: row.is_featured,
@@ -54,7 +55,7 @@ productsRouter.get('/', async (req, res, next) => {
     let query = supabasePublic
       .from('products')
       .select(
-        'id, name, slug, base_price, compare_at_price, is_featured, category:categories(name, slug), product_images(url, is_primary)',
+        'id, name, slug, brand, base_price, compare_at_price, is_featured, category:categories(name, slug), product_images(url, is_primary)',
         { count: 'exact' },
       )
       .order(sort.column, { ascending: sort.ascending })
@@ -64,6 +65,20 @@ productsRouter.get('/', async (req, res, next) => {
     if (req.query.search) query = query.ilike('name', `%${req.query.search}%`);
     if (req.query.featured === 'true') query = query.eq('is_featured', true);
 
+    // Shop-page facets. Brands come as a comma-separated list so several can
+    // be ticked at once; prices are filtered on base_price, the number the
+    // card actually shows.
+    const brands = String(req.query.brand || '')
+      .split(',')
+      .map((brand) => brand.trim())
+      .filter(Boolean);
+    if (brands.length) query = query.in('brand', brands);
+
+    const minPrice = Number(req.query.minPrice);
+    if (Number.isFinite(minPrice) && minPrice > 0) query = query.gte('base_price', minPrice);
+    const maxPrice = Number(req.query.maxPrice);
+    if (Number.isFinite(maxPrice) && maxPrice > 0) query = query.lte('base_price', maxPrice);
+
     const { data, error, count } = await query;
     if (error) throw new AppError('PRODUCTS_FETCH_FAILED', 'Không tải được danh sách sản phẩm.', 500);
 
@@ -71,6 +86,32 @@ productsRouter.get('/', async (req, res, next) => {
       data: data.map(formatProductSummary),
       pagination: { page, limit, total: count ?? 0, totalPages: Math.ceil((count ?? 0) / limit) },
     });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/products/brands - brand facet for the shop sidebar, with the
+// number of active products per brand so the sidebar never offers a filter
+// that would return nothing. Registered before /:slug so "brands" is not
+// mistaken for a product slug.
+productsRouter.get('/brands', async (req, res, next) => {
+  try {
+    const { data, error } = await supabasePublic.from('products').select('brand').not('brand', 'is', null);
+    if (error) throw new AppError('BRANDS_FETCH_FAILED', 'Không tải được danh sách thương hiệu.', 500);
+
+    const counts = new Map();
+    for (const row of data) {
+      const brand = (row.brand || '').trim();
+      if (!brand) continue;
+      counts.set(brand, (counts.get(brand) || 0) + 1);
+    }
+
+    const brands = [...counts.entries()]
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, 'vi'));
+
+    res.json({ data: brands });
   } catch (err) {
     next(err);
   }

@@ -142,7 +142,7 @@ async function renderDetail(orderId) {
       <p><strong>Khách hàng:</strong> ${escapeHtml(order.guest_name || 'Thành viên')} ${order.guest_phone ? `- ${escapeHtml(order.guest_phone)}` : ''}</p>
       ${order.guest_email ? `<p><strong>Email:</strong> ${escapeHtml(order.guest_email)}</p>` : ''}
       <p><strong>Địa chỉ giao hàng:</strong> ${escapeHtml(addressLine)}</p>
-      ${order.note ? `<p><strong>Ghi chú:</strong> ${escapeHtml(order.note)}</p>` : ''}
+      ${order.note || address.note ? `<p><strong>Ghi chú:</strong> ${escapeHtml(order.note || address.note)}</p>` : ''}
 
       <h2 class="admin-form-panel__heading">Sản phẩm</h2>
       <ul class="checkout-summary__items">
@@ -156,11 +156,11 @@ async function renderDetail(orderId) {
           )
           .join('')}
       </ul>
-      <div class="checkout-summary__totals">
-        <div class="checkout-summary__row"><span>Tạm tính</span><span>${formatCurrency(order.subtotal)}</span></div>
-        ${order.discount_amount > 0 ? `<div class="checkout-summary__row"><span>Giảm giá</span><span>-${formatCurrency(order.discount_amount)}</span></div>` : ''}
-        <div class="checkout-summary__row"><span>Phí vận chuyển</span><span>${order.shipping_method_id ? formatCurrency(order.shipping_fee) : 'Chưa xác định'}</span></div>
-        <div class="checkout-summary__row checkout-summary__row--total"><span>Tổng cộng</span><span>${formatCurrency(order.total_amount)}</span></div>
+      <div class="summary-rows">
+        <div class="summary-row"><span>Tạm tính</span><span>${formatCurrency(order.subtotal)}</span></div>
+        ${order.discount_amount > 0 ? `<div class="summary-row"><span>Giảm giá</span><span>-${formatCurrency(order.discount_amount)}</span></div>` : ''}
+        <div class="summary-row"><span>Phí vận chuyển</span><span>${order.shipping_method_id ? formatCurrency(order.shipping_fee) : 'Chưa xác định'}</span></div>
+        <div class="summary-row summary-row--total"><span>Tổng cộng</span><span>${formatCurrency(order.total_amount)}</span></div>
       </div>
 
       <h2 class="admin-form-panel__heading">Vận chuyển &amp; thanh toán</h2>
