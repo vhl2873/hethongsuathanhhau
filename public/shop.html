@@ -21,40 +21,82 @@
 <body>
   <div id="site-header"></div>
 
-  <main class="shop-page container page-section">
-    <div class="shop-page__header">
-      <h1 class="page-title">Cửa hàng</h1>
-      <div class="shop-page__toolbar">
-        <span class="shop-page__count" data-result-count>Đang tải sản phẩm...</span>
-        <label class="sr-only" for="sort-select">Sắp xếp</label>
-        <select id="sort-select" class="select" data-sort-select>
-          <option value="newest">Mới nhất</option>
-          <option value="price_asc">Giá: thấp đến cao</option>
-          <option value="price_desc">Giá: cao đến thấp</option>
-          <option value="name_asc">Tên: A-Z</option>
-        </select>
-      </div>
-    </div>
+  <main class="container shop page-section">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="./index.html">Trang chủ</a> / <span data-breadcrumb-current>Cửa hàng</span>
+    </nav>
 
-    <div class="shop-page__layout">
-      <aside class="shop-filters">
-        <h2 class="shop-filters__heading">Danh mục</h2>
-        <ul class="shop-filters__list" data-category-filter>
-          <li class="skeleton shop-filters__skeleton"></li>
-          <li class="skeleton shop-filters__skeleton"></li>
-          <li class="skeleton shop-filters__skeleton"></li>
-        </ul>
+    <div class="shop__layout">
+      <aside class="shop-sidebar">
+        <button type="button" class="shop-sidebar__toggle btn btn--outline" data-filter-toggle aria-expanded="false">
+          Bộ lọc sản phẩm
+        </button>
+
+        <div class="shop-sidebar__panels" data-filter-panels>
+          <section class="panel">
+            <div class="section-head">
+              <h2 class="section-head__title">Danh mục</h2>
+            </div>
+            <ul class="filter-list" data-category-filter>
+              <li class="skeleton filter-list__skeleton"></li>
+              <li class="skeleton filter-list__skeleton"></li>
+              <li class="skeleton filter-list__skeleton"></li>
+              <li class="skeleton filter-list__skeleton"></li>
+            </ul>
+          </section>
+
+          <section class="panel" data-brand-panel hidden>
+            <div class="section-head">
+              <h2 class="section-head__title">Thương hiệu</h2>
+            </div>
+            <div class="filter-checks" data-brand-filter></div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head">
+              <h2 class="section-head__title">Khoảng giá</h2>
+            </div>
+            <form class="price-filter" data-price-filter>
+              <label class="sr-only" for="filter-min-price">Giá thấp nhất</label>
+              <input class="input" id="filter-min-price" type="number" min="0" step="10000" placeholder="Từ" name="minPrice" />
+              <span class="price-filter__dash" aria-hidden="true">–</span>
+              <label class="sr-only" for="filter-max-price">Giá cao nhất</label>
+              <input class="input" id="filter-max-price" type="number" min="0" step="10000" placeholder="Đến" name="maxPrice" />
+              <button type="submit" class="btn btn--primary btn--sm">Áp dụng</button>
+            </form>
+          </section>
+
+          <section class="consult-card">
+            <p class="consult-card__title">Cần tư vấn chọn sữa?</p>
+            <p class="consult-card__text">Nhắn tháng tuổi và cân nặng của bé, nhân viên cửa hàng sẽ gợi ý 2–3 lựa chọn phù hợp.</p>
+            <div class="consult-card__actions">
+              <a class="btn btn--primary btn--sm" data-store-zalo-link href="./contact.html" hidden>Chat Zalo</a>
+              <a class="btn btn--outline btn--sm" data-store-hotline-link href="./contact.html"><span>Gọi <span data-store-hotline>hotline</span></span></a>
+            </div>
+          </section>
+        </div>
       </aside>
 
-      <div class="shop-page__main">
-        <div class="product-grid" data-product-grid>
-          <div class="skeleton product-card-skeleton"></div>
-          <div class="skeleton product-card-skeleton"></div>
-          <div class="skeleton product-card-skeleton"></div>
-          <div class="skeleton product-card-skeleton"></div>
-          <div class="skeleton product-card-skeleton"></div>
-          <div class="skeleton product-card-skeleton"></div>
+      <div class="shop__main">
+        <div class="panel shop-toolbar">
+          <div class="shop-toolbar__chips" data-active-filters hidden>
+            <span class="shop-toolbar__chips-label">Đang lọc:</span>
+          </div>
+          <div class="shop-toolbar__row">
+            <h1 class="shop-toolbar__count" data-result-count>Đang tải sản phẩm…</h1>
+            <div class="shop-toolbar__sort">
+              <label for="sort-select">Sắp xếp</label>
+              <select id="sort-select" class="select" data-sort-select>
+                <option value="newest">Mới nhất</option>
+                <option value="price_asc">Giá: thấp đến cao</option>
+                <option value="price_desc">Giá: cao đến thấp</option>
+                <option value="name_asc">Tên: A-Z</option>
+              </select>
+            </div>
+          </div>
         </div>
+
+        <div class="product-grid product-grid--4" data-product-grid></div>
         <nav class="pagination" data-pagination aria-label="Phân trang"></nav>
       </div>
     </div>

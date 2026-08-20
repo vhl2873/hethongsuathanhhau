@@ -17,17 +17,25 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* The [hidden] attribute is the app's one "not now" switch (empty coupon
+   lists, missing Zalo link, filter chips with nothing in them), and a class
+   rule like `display:flex` would otherwise out-specify the browser default
+   and show the element anyway. */
+[hidden] {
+  display: none !important;
+}
+
 img, svg {
   max-width: 100%;
   display: block;
 }
 
 a {
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   text-decoration: none;
 }
 a:hover {
-  text-decoration: underline;
+  color: var(--color-primary-deep);
 }
 
 ul, ol {
@@ -39,6 +47,7 @@ ul, ol {
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 var(--space-3);
   line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 p {

@@ -1,28 +1,32 @@
 import { api } from './api.js';
 import * as cart from '../cart.js';
-import { escapeHtml } from './format.js';
+import { escapeHtml, formatCurrency } from './format.js';
 import { getSession, onAuthStateChange } from '../auth.js';
 
 // Called by include.js right after header/footer partials are injected into
 // the DOM - populates the parts that need real data (per-category nav
-// items, category search filter, footer store info, cart badge, account
-// icon) instead of hardcoding them into the partial HTML.
+// items, category search filter, search quick-links, footer store info,
+// payment methods, cart badge/total, account link) instead of hardcoding
+// them into the partial HTML.
 export async function initLayout() {
-  await Promise.all([renderCategoryData(), renderStoreSettings(), refreshAccountLink()]);
-  refreshCartBadge();
-  window.addEventListener('cart:changed', refreshCartBadge);
+  await Promise.all([renderCategoryData(), renderStoreSettings(), renderPaymentMethods(), refreshAccountLink()]);
+  refreshCartIndicators();
+  markCurrentPage();
+  window.addEventListener('cart:changed', refreshCartIndicators);
   wireMobileMenuToggle();
   wireNavDropdowns();
+  wireNewsletterForm();
   onAuthStateChange(() => refreshAccountLink());
 }
 
-// One /api/categories fetch feeds both the flat per-category nav items
-// (each with its own dropdown for children, if any) and the category
-// filter in the header search bar.
+// One /api/categories fetch feeds the flat per-category nav items (each
+// with its own dropdown for children, if any), the category filter in the
+// header search bar, the search quick-links, and the footer category list.
 async function renderCategoryData() {
   const navAnchor = document.querySelector('[data-category-nav-anchor]');
   const select = document.querySelector('[data-category-select]');
-  if (!navAnchor && !select) return;
+  const suggestionsEl = document.querySelector('[data-search-suggestions]');
+  const footerListEl = document.querySelector('[data-footer-categories]');
 
   try {
     const categories = await api.get('/api/categories');
@@ -45,6 +49,28 @@ async function renderCategoryData() {
               `<option value="${escapeHtml(category.slug)}" ${category.slug === activeSlug ? 'selected' : ''}>${'  '.repeat(category.depth)}${escapeHtml(category.name)}</option>`,
           )
           .join('');
+    }
+
+    // Quick-links under the search field: the store's own top categories,
+    // not invented "popular searches" nobody has actually searched for.
+    if (suggestionsEl) {
+      suggestionsEl.innerHTML = categories
+        .slice(0, 4)
+        .map(
+          (category) =>
+            `<a class="site-header__suggestion" href="./shop.html?category=${encodeURIComponent(category.slug)}">${escapeHtml(category.name)}</a>`,
+        )
+        .join('');
+    }
+
+    if (footerListEl && categories.length) {
+      footerListEl.innerHTML = categories
+        .slice(0, 5)
+        .map(
+          (category) =>
+            `<li><a href="./shop.html?category=${encodeURIComponent(category.slug)}">${escapeHtml(category.name)}</a></li>`,
+        )
+        .join('');
     }
   } catch {
     if (navAnchor) {
@@ -87,8 +113,9 @@ function renderCategoryNavItem(category) {
 }
 
 // Populates every occurrence of the shared data-store-* attributes,
-// wherever they appear (header utility bar, footer) - both partials share
-// the same one fetch instead of each querying /api/settings separately.
+// wherever they appear (header utility bar, header hotline, footer,
+// floating dock) - all three share the same one fetch instead of each
+// querying /api/settings separately.
 async function renderStoreSettings() {
   try {
     const settings = await api.get('/api/settings');
@@ -96,17 +123,33 @@ async function renderStoreSettings() {
     setText('[data-store-address]', settings.store_address);
     setText('[data-store-hours]', settings.opening_hours);
     setText('[data-store-email]', settings.store_email);
+    setText('[data-store-hotline]', settings.store_hotline);
 
-    document.querySelectorAll('[data-store-hotline]').forEach((el) => {
-      if (!settings.store_hotline) return;
-      el.textContent = settings.store_hotline;
-      el.href = `tel:${settings.store_hotline.replace(/\s+/g, '')}`;
-    });
+    if (settings.store_hotline) {
+      const tel = `tel:${String(settings.store_hotline).replace(/\s+/g, '')}`;
+      document.querySelectorAll('[data-store-hotline-link]').forEach((el) => {
+        el.href = tel;
+        el.hidden = false;
+      });
+    }
 
     document.querySelectorAll('[data-store-email-link]').forEach((el) => {
       if (!settings.store_email) return;
       el.href = `mailto:${settings.store_email}`;
     });
+
+    // The Zalo pill in the floating dock only appears once a Zalo link has
+    // actually been configured in admin settings - a dead "Chat Zalo"
+    // button is worse than no button.
+    const zaloUrl = settings.social_links?.zalo;
+    if (zaloUrl) {
+      document.querySelectorAll('[data-store-zalo-link]').forEach((el) => {
+        el.href = zaloUrl;
+        el.target = '_blank';
+        el.rel = 'noopener';
+        el.hidden = false;
+      });
+    }
   } catch {
     // Honest empty state: leave the static fallback text already written in
     // the partials rather than showing an error banner.
@@ -117,6 +160,22 @@ async function renderStoreSettings() {
   });
 }
 
+// Footer "Thanh toán" chips list what the store really accepts, read from
+// the same payment_methods table checkout uses.
+async function renderPaymentMethods() {
+  const container = document.querySelector('[data-footer-payments]');
+  if (!container) return;
+
+  try {
+    const methods = await api.get('/api/checkout/payment-methods');
+    if (!methods.length) return;
+    container.innerHTML = methods.map((method) => `<span>${escapeHtml(method.name)}</span>`).join('');
+    container.hidden = false;
+  } catch {
+    // Leave the block hidden.
+  }
+}
+
 function setText(selector, value) {
   if (!value) return;
   document.querySelectorAll(selector).forEach((el) => {
@@ -124,28 +183,59 @@ function setText(selector, value) {
   });
 }
 
-function refreshCartBadge() {
-  const badge = document.querySelector('[data-cart-count]');
-  if (!badge) return;
+// Header cart pill shows count + running total; the mobile tab bar shows
+// the same count, so both are updated from one place.
+function refreshCartIndicators() {
   const count = cart.getCount();
-  badge.textContent = String(count);
-  badge.hidden = count === 0;
+  document.querySelectorAll('[data-cart-count]').forEach((badge) => {
+    badge.textContent = String(count);
+    badge.hidden = count === 0;
+  });
+  document.querySelectorAll('[data-cart-total]').forEach((el) => {
+    el.textContent = formatCurrency(cart.getTotal());
+  });
 }
 
 async function refreshAccountLink() {
   const link = document.querySelector('[data-account-link]');
   if (!link) return;
 
+  const label = link.querySelector('[data-account-label]');
   const session = await getSession();
   if (session) {
     link.href = './account.html';
     link.setAttribute('aria-label', 'Tài khoản của tôi');
     link.classList.add('is-logged-in');
+    if (label) {
+      const name = session.user?.user_metadata?.full_name || session.user?.email || 'Tài khoản';
+      label.textContent = name;
+    }
   } else {
     link.href = './login.html';
     link.setAttribute('aria-label', 'Đăng nhập');
     link.classList.remove('is-logged-in');
+    if (label) label.textContent = 'Đăng nhập';
   }
+}
+
+// Highlights the current page in the category strip and the mobile tab bar
+// so the user can see where they are without reading the URL.
+function markCurrentPage() {
+  const file = window.location.pathname.split('/').pop() || 'index.html';
+  const page = file.replace('.html', '') || 'index';
+
+  document.querySelectorAll('.mobile-tabbar__link').forEach((link) => {
+    link.classList.toggle('is-active', link.dataset.tab === page);
+  });
+
+  const activeCategory = new URLSearchParams(window.location.search).get('category');
+  document.querySelectorAll('.main-nav__item > .main-nav__link[href]').forEach((link) => {
+    const href = link.getAttribute('href') || '';
+    const isCurrent = activeCategory
+      ? href.includes(`category=${encodeURIComponent(activeCategory)}`)
+      : href === `./${file}` && !href.includes('category=');
+    if (isCurrent) link.closest('.main-nav__item').classList.add('is-active');
+  });
 }
 
 function wireMobileMenuToggle() {
@@ -158,8 +248,46 @@ function wireMobileMenuToggle() {
   });
 }
 
+// Footer newsletter: posts to the same /api/newsletter endpoint the
+// contact page uses, and reports the real outcome instead of always
+// claiming success.
+function wireNewsletterForm() {
+  const form = document.querySelector('[data-newsletter-form]');
+  if (!form) return;
+  const messageEl = document.querySelector('[data-newsletter-message]');
+  const input = form.querySelector('input[name="email"]');
+  const submit = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const email = input.value.trim();
+    if (!messageEl) return;
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      messageEl.textContent = 'Vui lòng nhập email hợp lệ.';
+      messageEl.classList.add('is-error');
+      return;
+    }
+
+    submit.disabled = true;
+    messageEl.classList.remove('is-error');
+    messageEl.textContent = 'Đang gửi…';
+
+    try {
+      await api.post('/api/newsletter', { email });
+      form.reset();
+      messageEl.textContent = 'Đã đăng ký nhận thông báo ưu đãi.';
+    } catch {
+      messageEl.textContent = 'Không gửi được, vui lòng thử lại sau.';
+      messageEl.classList.add('is-error');
+    } finally {
+      submit.disabled = false;
+    }
+  });
+}
+
 // Click-to-toggle for dropdown nav items (category items with children,
-// "Góc tư vấn") - works on both desktop (mouse) and mobile (touch), unlike
+// "Cẩm nang") - works on both desktop (mouse) and mobile (touch), unlike
 // a CSS-only :hover menu. Re-run after category items are injected since
 // those are new DOM nodes without listeners yet; addEventListener on the
 // same node twice is harmless (duplicate handlers) so guard with a marker.
@@ -175,7 +303,7 @@ function wireNavDropdowns() {
     trigger?.addEventListener('click', (event) => {
       // Category items are real links (navigate on click); only prevent
       // the default/close-on-outside-click dance for button-only triggers
-      // like "Góc tư vấn" that have no navigation target of their own.
+      // like "Cẩm nang" that have no navigation target of their own.
       if (trigger.tagName === 'BUTTON') {
         event.preventDefault();
       } else {

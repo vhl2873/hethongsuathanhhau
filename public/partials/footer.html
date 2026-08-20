@@ -1,36 +1,106 @@
 <footer class="site-footer">
-  <div class="site-footer__grid container">
-    <div class="site-footer__col">
-      <h3 class="site-footer__heading" data-store-name>Siêu Thị Sữa Thanh Hậu</h3>
-      <p data-store-address>Đang tải thông tin cửa hàng...</p>
-      <p>Hotline: <a data-store-hotline href="#"></a></p>
-      <p>Email: <a data-store-email data-store-email-link href="#"></a></p>
-      <p data-store-hours></p>
+  <div class="container site-footer__grid">
+    <div>
+      <div class="site-footer__brand">
+        <img src="./assets/img/logo.png" alt="" width="38" height="38" />
+        <span class="site-footer__brand-text">SIÊU THỊ SỮA<span>THANH HẬU</span></span>
+      </div>
+      <p class="site-footer__about">
+        Sữa bột, sữa tươi, sữa bầu và đồ dùng cho bé — nguồn gốc rõ ràng, giao tận nơi.
+      </p>
+      <div class="site-footer__contact">
+        <div data-store-address>Đang tải thông tin cửa hàng…</div>
+        <div>Hotline: <a data-store-hotline data-store-hotline-link href="#"></a></div>
+        <div>Email: <a data-store-email data-store-email-link href="#"></a></div>
+        <div data-store-hours></div>
+      </div>
     </div>
 
-    <div class="site-footer__col">
-      <h3 class="site-footer__heading">Thông tin</h3>
+    <div>
+      <h3 class="site-footer__heading">Danh mục</h3>
+      <ul class="site-footer__links" data-footer-categories>
+        <li><a href="./shop.html">Tất cả sản phẩm</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="site-footer__heading">Chính sách</h3>
       <ul class="site-footer__links">
-        <li><a href="./about.html">Giới thiệu</a></li>
+        <li><a href="./faq.html#giao-hang">Giao hàng &amp; phí ship</a></li>
+        <li><a href="./faq.html#doi-tra">Đổi trả trong 7 ngày</a></li>
+        <li><a href="./privacy-policy.html">Bảo mật thông tin</a></li>
+        <li><a href="./faq.html#hang-that">Kiểm tra tem chính hãng</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="site-footer__heading">Hỗ trợ</h3>
+      <ul class="site-footer__links">
+        <li><a href="./account-orders.html">Tra cứu đơn hàng</a></li>
+        <li><a href="./blog.html">Hướng dẫn chọn sữa</a></li>
         <li><a href="./faq.html">Câu hỏi thường gặp</a></li>
-        <li><a href="./privacy-policy.html">Chính sách bảo mật</a></li>
-        <li><a href="./contact.html">Liên hệ</a></li>
-        <li><a href="./blog.html">Tin tức</a></li>
+        <li><a href="./contact.html">Hệ thống cửa hàng</a></li>
+        <li><a href="./account.html">Tài khoản của tôi</a></li>
       </ul>
     </div>
 
-    <div class="site-footer__col">
-      <h3 class="site-footer__heading">Tài khoản</h3>
-      <ul class="site-footer__links">
-        <li><a href="./account.html">Tài khoản của tôi</a></li>
-        <li><a href="./account-orders.html">Đơn hàng của tôi</a></li>
-        <li><a href="./cart.html">Giỏ hàng</a></li>
-      </ul>
+    <div>
+      <h3 class="site-footer__heading">Nhận thông báo ưu đãi</h3>
+      <form class="site-footer__newsletter" data-newsletter-form novalidate>
+        <label class="sr-only" for="footer-newsletter-email">Email nhận ưu đãi</label>
+        <input id="footer-newsletter-email" type="email" name="email" placeholder="Email của bạn" required />
+        <button type="submit" class="btn btn--accent btn--sm">Gửi</button>
+      </form>
+      <p class="site-footer__newsletter-message" data-newsletter-message role="status"></p>
+
+      <h3 class="site-footer__heading">Thanh toán</h3>
+      <div class="site-footer__pay" data-footer-payments hidden></div>
     </div>
   </div>
 
-  <div class="site-footer__bottom container">
-    <p>&copy; <span data-current-year></span> Siêu Thị Sữa Thanh Hậu. Đã đăng ký bản quyền.</p>
+  <div class="container site-footer__bottom">
+    <span>&copy; <span data-current-year></span> <span data-store-name>Siêu Thị Sữa Thanh Hậu</span></span>
     <a class="site-footer__admin-link" href="./admin/login.html">Quản trị</a>
   </div>
 </footer>
+
+<!-- Floating contact dock: Zalo shown only when a Zalo link is configured
+     in store settings, hotline only when a hotline number exists. -->
+<div class="floating-dock" data-floating-dock>
+  <a class="floating-dock__item" data-store-zalo-link href="#" hidden>
+    <span class="floating-dock__icon">Zalo</span>
+    <span class="floating-dock__label">Chat Zalo</span>
+  </a>
+  <a class="floating-dock__item floating-dock__item--phone" data-store-hotline-link href="#" hidden>
+    <span class="floating-dock__icon">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M5 4h3l1.6 4-2 1.4a12 12 0 0 0 6 6l1.4-2 4 1.6v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3 6.2 2 2 0 0 1 5 4z"></path>
+      </svg>
+    </span>
+    <span class="floating-dock__label" data-store-hotline>Hotline</span>
+  </a>
+</div>
+
+<nav class="mobile-tabbar" aria-label="Điều hướng nhanh">
+  <div class="mobile-tabbar__inner">
+    <a class="mobile-tabbar__link" href="./index.html" data-tab="index">
+      <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 11 12 4l8 7"></path><path d="M6 10v9h12v-9"></path></svg>
+      Trang chủ
+    </a>
+    <a class="mobile-tabbar__link" href="./shop.html" data-tab="shop">
+      <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"></rect><rect x="13" y="4" width="7" height="7" rx="1.5"></rect><rect x="4" y="13" width="7" height="7" rx="1.5"></rect><rect x="13" y="13" width="7" height="7" rx="1.5"></rect></svg>
+      Danh mục
+    </a>
+    <a class="mobile-tabbar__link" href="./cart.html" data-tab="cart">
+      <span class="mobile-tabbar__badge-wrap">
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 7h13l-1.4 9.2a2 2 0 0 1-2 1.8H9.4a2 2 0 0 1-2-1.8L6 7z"></path><path d="M9.5 7V5.6A2.6 2.6 0 0 1 12 3a2.6 2.6 0 0 1 2.5 2.6V7"></path></svg>
+        <span class="mobile-tabbar__badge" data-cart-count hidden>0</span>
+      </span>
+      Giỏ hàng
+    </a>
+    <a class="mobile-tabbar__link" href="./account.html" data-tab="account">
+      <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="3.4"></circle><path d="M5 20c1.4-3.6 4-5.2 7-5.2s5.6 1.6 7 5.2"></path></svg>
+      Tài khoản
+    </a>
+  </div>
+</nav>

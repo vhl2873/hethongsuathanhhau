@@ -1,35 +1,70 @@
 /* Design tokens - single source of truth for color/spacing/radius/type.
    Every other stylesheet should reference these variables instead of
-   hardcoding values, so a theme change only touches this file. */
+   hardcoding values, so a theme change only touches this file.
+
+   Palette follows the "Thanh Hau Storefront" design (Con Cung-style
+   commerce layout): pink #E8497F carries navigation, primary buttons and
+   category icons; deeper pinks mark pressed/active states; the sale red
+   #E5194E is reserved for discounted prices and discount badges so a price
+   never competes with a button for attention. */
 :root {
-  /* Colors - matched to the real TS Group logo (assets/img/logo.png):
-     green dome + blue arc + white sprout. Green is primary (larger visual
-     weight in the mark, reads as "nutrition/growth"); blue is secondary. */
-  --color-primary: #1e8449;
-  --color-primary-dark: #145c33;
-  --color-secondary: #1b6fa8;
-  --color-accent: #f5a623;
-  --color-danger: #dc2626;
-  --color-success: #22c55e;
+  --color-primary: #e8497f;
+  --color-primary-dark: #c42e62;
+  --color-primary-deep: #9e1f4e;
+  --color-primary-soft: #f26593;
+
+  /* Sale red - prices and discount badges only, never buttons. */
+  --color-sale: #e5194e;
+  --color-accent: #ffd65c;
+  --color-accent-ink: #5b4400;
+  --color-accent-deep: #a9791c;
+  --color-accent-surface: #fff7e4;
+
+  --color-danger: #e5194e;
+  --color-success: #1a9d5c;
   --color-warning: #d97706;
   --color-info: #0284c7;
+  --color-star: #f0a93b;
+  --color-zalo: #0068ff;
 
-  --color-text: #16261c;
-  --color-muted: #5b7a68;
-  --color-border: #cdeed9;
+  --color-text: #26181d;
+  --color-text-soft: #4a3d42;
+  --color-muted: #8a7a80;
+  --color-muted-soft: #a0929a;
+  --color-placeholder: #a99ba1;
+
+  --color-border: #f0e5ea;
+  --color-border-strong: #eadfe4;
+  --color-border-pink: #fbd9e5;
   --color-surface: #ffffff;
-  --color-background: #f3faf5;
+  --color-surface-tint: #fff0f5;
+  --color-surface-tint-soft: #fff8fa;
+  --color-surface-alt: #f7f2f4;
+  --color-background: #f7f2f4;
+
+  /* Product image plates use a very light pink wash so white packaging
+     still reads as a distinct object on the card. */
+  --gradient-plate: linear-gradient(180deg, #fff6fa, #faf3f6);
+  --gradient-hero: linear-gradient(115deg, #c42e62 0%, #e8497f 62%, #f58baf 100%);
+  --gradient-sale: linear-gradient(90deg, #e5194e, #f26593);
+  --gradient-voucher: linear-gradient(160deg, #e8497f, #c42e62);
+  --gradient-footer: linear-gradient(180deg, #a82551, #7e1740);
 
   /* Typography - Be Vietnam Pro is a Google font built specifically with
      full Vietnamese diacritic coverage, loaded via <link> in each page's
-     <head> (see index.html) since there's no bundler to self-host it. */
+     <head> (see index.html) since there's no bundler to self-host it.
+     The scale is deliberately compact: this is a dense catalogue UI where
+     a product card must fit brand + name + price + CTA without scrolling. */
   --font-family-base: 'Be Vietnam Pro', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.5rem;
-  --font-size-2xl: 2rem;
+  --font-size-2xs: 0.65rem;
+  --font-size-xs: 0.71rem;
+  --font-size-sm: 0.79rem;
+  --font-size-base: 0.875rem;
+  --font-size-md: 0.95rem;
+  --font-size-lg: 1.04rem;
+  --font-size-xl: 1.35rem;
+  --font-size-2xl: 1.75rem;
+  --font-size-3xl: 2.3rem;
 
   /* Spacing scale */
   --space-1: 0.25rem;
@@ -40,15 +75,20 @@
   --space-6: 2rem;
   --space-8: 3rem;
 
-  /* Radius / shadow */
-  --radius-sm: 6px;
+  /* Radius / shadow - one radius per block size keeps every panel on the
+     page visually related (the design's main complaint about the old UI). */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
   --radius-md: 10px;
-  --radius-lg: 16px;
+  --radius-lg: 12px;
+  --radius-xl: 14px;
   --radius-pill: 999px;
-  --shadow-sm: 0 1px 2px rgba(20, 92, 51, 0.08);
-  --shadow-md: 0 4px 16px rgba(20, 92, 51, 0.12);
+  --shadow-sm: 0 1px 2px rgba(38, 24, 29, 0.06);
+  --shadow-md: 0 8px 20px rgba(38, 24, 29, 0.1);
+  --shadow-lg: 0 10px 24px rgba(38, 24, 29, 0.12);
+  --shadow-dock: 0 6px 18px rgba(38, 24, 29, 0.2);
 
   /* Layout */
-  --container-max-width: 1200px;
+  --container-max-width: 1256px;
   --header-height: 56px;
 }

@@ -120,10 +120,10 @@ async function renderDetail(orderNumber) {
         </ul>
 
         <div class="order-detail__totals">
-          <div class="checkout-summary__row"><span>Tạm tính</span><span>${formatCurrency(order.subtotal)}</span></div>
-          ${order.discount_amount > 0 ? `<div class="checkout-summary__row"><span>Giảm giá</span><span>-${formatCurrency(order.discount_amount)}</span></div>` : ''}
-          <div class="checkout-summary__row"><span>Phí vận chuyển</span><span>${formatCurrency(order.shipping_fee)}</span></div>
-          <div class="checkout-summary__row checkout-summary__row--total"><span>Tổng cộng</span><span>${formatCurrency(order.total_amount)}</span></div>
+          <div class="summary-row"><span>Tạm tính</span><span>${formatCurrency(order.subtotal)}</span></div>
+          ${order.discount_amount > 0 ? `<div class="summary-row"><span>Giảm giá</span><span>-${formatCurrency(order.discount_amount)}</span></div>` : ''}
+          <div class="summary-row"><span>Phí vận chuyển</span><span>${formatCurrency(order.shipping_fee)}</span></div>
+          <div class="summary-row summary-row--total"><span>Tổng cộng</span><span>${formatCurrency(order.total_amount)}</span></div>
         </div>
 
         <h3 class="order-detail__subheading">Lịch sử trạng thái</h3>
