@@ -36,8 +36,11 @@
           <input class="input" id="b-title" name="title" />
         </div>
         <div class="field">
-          <label class="field__label" for="b-image">URL ảnh</label>
-          <input class="input" id="b-image" name="image_url" required />
+          <label class="field__label" for="b-image-file">Ảnh banner</label>
+          <div class="admin-image-list" data-banner-image-preview></div>
+          <input class="input" type="file" id="b-image-file" accept="image/jpeg,image/png,image/webp,image/gif" />
+          <span class="field__error" data-banner-image-error></span>
+          <input type="hidden" id="b-image" name="image_url" required />
         </div>
         <div class="field">
           <label class="field__label" for="b-link">URL liên kết (không bắt buộc)</label>

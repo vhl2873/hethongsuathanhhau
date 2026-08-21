@@ -9,6 +9,17 @@ let currentPage = 1;
 
 const root = document.querySelector('[data-content-root]');
 
+// Uploads a single image file to Supabase Storage via the admin API and
+// returns its public URL. Never uploads directly from the browser to
+// Storage - always goes through the server so the service-role key stays
+// server-side and requireAdmin gates who can write to the bucket.
+async function uploadImageFile(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  const result = await api.post('/api/admin/storage/upload', formData, { token });
+  return result.url;
+}
+
 async function renderList() {
   root.innerHTML = `
     <div class="admin-toolbar">
@@ -106,8 +117,15 @@ async function renderDetail(postId) {
           </div>
         </div>
         <div class="field">
-          <label class="field__label" for="post-cover">URL ảnh bìa</label>
-          <input class="input" id="post-cover" name="cover_image_url" value="${escapeHtml(post?.cover_image_url || '')}" />
+          <label class="field__label" for="post-cover-file">Ảnh bìa</label>
+          <div class="admin-image-list" data-post-image-preview>${
+            post?.cover_image_url
+              ? `<div class="admin-image-item"><img src="${escapeHtml(post.cover_image_url)}" alt="" width="120" height="68" style="object-fit:cover" /></div>`
+              : ''
+          }</div>
+          <input class="input" type="file" id="post-cover-file" accept="image/jpeg,image/png,image/webp,image/gif" />
+          <span class="field__error" data-post-image-error></span>
+          <input type="hidden" id="post-cover" name="cover_image_url" value="${escapeHtml(post?.cover_image_url || '')}" />
         </div>
         <div class="field">
           <label class="field__label" for="post-excerpt">Tóm tắt</label>
@@ -138,6 +156,28 @@ async function renderDetail(postId) {
 
   const form = root.querySelector('[data-post-form]');
   const formError = root.querySelector('[data-post-form-error]');
+  const coverFileInput = root.querySelector('#post-cover-file');
+  const coverPreview = root.querySelector('[data-post-image-preview]');
+  const coverError = root.querySelector('[data-post-image-error]');
+
+  coverFileInput.addEventListener('change', async () => {
+    const file = coverFileInput.files[0];
+    if (!file) return;
+
+    coverError.textContent = '';
+    coverFileInput.disabled = true;
+    coverPreview.innerHTML = `<div class="admin-image-item"><img src="${URL.createObjectURL(file)}" alt="" width="120" height="68" style="object-fit:cover" /></div>`;
+
+    try {
+      const url = await uploadImageFile(file);
+      form.elements.cover_image_url.value = url;
+      coverPreview.innerHTML = `<div class="admin-image-item"><img src="${escapeHtml(url)}" alt="" width="120" height="68" style="object-fit:cover" /></div>`;
+    } catch (err) {
+      coverError.textContent = err instanceof ApiError ? err.message : 'Không tải ảnh lên được, vui lòng thử lại.';
+    } finally {
+      coverFileInput.disabled = false;
+    }
+  });
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
