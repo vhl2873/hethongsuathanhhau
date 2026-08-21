@@ -22,14 +22,34 @@ const CATEGORY_ICONS = [
 ];
 const FALLBACK_ICON = CATEGORY_ICONS[0].path;
 
+// Real photo thumbnails for the categories that ship by default. Anything
+// the shop renames or adds beyond these still gets the line-icon fallback
+// below rather than a broken image.
+const CATEGORY_PHOTOS = [
+  { match: ['sữa bột', 'công thức'], src: './assets/img/categories/sua-bot.png' },
+  { match: ['sữa tươi', 'tiệt trùng'], src: './assets/img/categories/sua-tuoi.png' },
+  { match: ['bầu', 'sau sinh', 'mẹ'], src: './assets/img/categories/sua-bau.png' },
+  { match: ['đồ dùng', 'phụ kiện'], src: './assets/img/categories/do-dung-cho-be.png' },
+];
+
 function iconFor(name) {
   const lower = (name || '').toLowerCase();
   const found = CATEGORY_ICONS.find((icon) => icon.match.some((keyword) => lower.includes(keyword)));
   return found ? found.path : FALLBACK_ICON;
 }
 
+function photoFor(name) {
+  const lower = (name || '').toLowerCase();
+  const found = CATEGORY_PHOTOS.find((photo) => photo.match.some((keyword) => lower.includes(keyword)));
+  return found?.src || null;
+}
+
 function categoryIcon(name) {
-  return `<span class="cat-grid__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">${iconFor(name)}</svg></span>`;
+  const photo = photoFor(name);
+  const inner = photo
+    ? `<img src="${escapeHtml(photo)}" alt="" width="56" height="56" loading="lazy" />`
+    : `<svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">${iconFor(name)}</svg>`;
+  return `<span class="cat-grid__icon" aria-hidden="true">${inner}</span>`;
 }
 
 function shopHref(slug) {
