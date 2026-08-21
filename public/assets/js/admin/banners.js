@@ -67,10 +67,15 @@ function showForm(banner) {
   imageFileInput.value = '';
   formHeading.textContent = banner ? 'Sửa banner' : 'Thêm banner mới';
   form.elements.bannerId.value = banner?.id || '';
+  form.elements.eyebrow.value = banner?.eyebrow || '';
   form.elements.title.value = banner?.title || '';
+  form.elements.subtitle.value = banner?.subtitle || '';
   form.elements.image_url.value = banner?.image_url || '';
   renderImagePreview(banner?.image_url || '');
+  form.elements.cta_label.value = banner?.cta_label || '';
   form.elements.link_url.value = banner?.link_url || '';
+  form.elements.secondary_cta_label.value = banner?.secondary_cta_label || '';
+  form.elements.secondary_cta_url.value = banner?.secondary_cta_url || '';
   form.elements.position.value = banner?.position || 'home_hero';
   form.elements.sort_order.value = banner?.sort_order ?? 0;
   form.elements.is_active.checked = banner ? banner.is_active : true;
@@ -128,9 +133,14 @@ form.addEventListener('submit', async (event) => {
   formError.hidden = true;
   const formData = new FormData(form);
   const payload = {
+    eyebrow: formData.get('eyebrow').trim(),
     title: formData.get('title').trim(),
+    subtitle: formData.get('subtitle').trim(),
     image_url: formData.get('image_url').trim(),
+    cta_label: formData.get('cta_label').trim(),
     link_url: formData.get('link_url').trim(),
+    secondary_cta_label: formData.get('secondary_cta_label').trim(),
+    secondary_cta_url: formData.get('secondary_cta_url').trim(),
     position: formData.get('position'),
     sort_order: Number(formData.get('sort_order')) || 0,
     is_active: formData.get('is_active') === 'on',

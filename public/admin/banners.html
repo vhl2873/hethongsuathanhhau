@@ -32,8 +32,16 @@
       <form data-banner-form novalidate>
         <input type="hidden" name="bannerId" />
         <div class="field">
-          <label class="field__label" for="b-title">Tiêu đề (không bắt buộc)</label>
-          <input class="input" id="b-title" name="title" />
+          <label class="field__label" for="b-eyebrow">Nhãn nhỏ phía trên tiêu đề (không bắt buộc)</label>
+          <input class="input" id="b-eyebrow" name="eyebrow" placeholder="HÀNG CHÍNH HÃNG · CÓ TEM CHỐNG HÀNG GIẢ" />
+        </div>
+        <div class="field">
+          <label class="field__label" for="b-title">Tiêu đề</label>
+          <input class="input" id="b-title" name="title" placeholder="Sữa chính hãng, yên tâm cho cả nhà." />
+        </div>
+        <div class="field">
+          <label class="field__label" for="b-subtitle">Mô tả (không bắt buộc)</label>
+          <textarea class="textarea" id="b-subtitle" name="subtitle"></textarea>
         </div>
         <div class="field">
           <label class="field__label" for="b-image-file">Ảnh banner</label>
@@ -42,9 +50,25 @@
           <span class="field__error" data-banner-image-error></span>
           <input type="hidden" id="b-image" name="image_url" required />
         </div>
-        <div class="field">
-          <label class="field__label" for="b-link">URL liên kết (không bắt buộc)</label>
-          <input class="input" id="b-link" name="link_url" />
+        <div class="field-row">
+          <div class="field">
+            <label class="field__label" for="b-cta-label">Nhãn nút 1 (không bắt buộc)</label>
+            <input class="input" id="b-cta-label" name="cta_label" placeholder="Mua sắm ngay" />
+          </div>
+          <div class="field">
+            <label class="field__label" for="b-link">Link nút 1</label>
+            <input class="input" id="b-link" name="link_url" placeholder="./shop.html" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label class="field__label" for="b-cta2-label">Nhãn nút 2 (không bắt buộc)</label>
+            <input class="input" id="b-cta2-label" name="secondary_cta_label" placeholder="Nhận tư vấn" />
+          </div>
+          <div class="field">
+            <label class="field__label" for="b-cta2-link">Link nút 2</label>
+            <input class="input" id="b-cta2-link" name="secondary_cta_url" placeholder="./contact.html" />
+          </div>
         </div>
         <div class="field-row">
           <div class="field">

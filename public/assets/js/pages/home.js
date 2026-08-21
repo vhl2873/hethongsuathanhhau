@@ -59,6 +59,53 @@ function shopHref(slug) {
   return `./shop.html?category=${encodeURIComponent(slug)}`;
 }
 
+// ---------------------------------------------------------------------- hero
+// Slides come from admin/banners.html (position "home_hero") instead of
+// being hardcoded here, so marketing can change the hero without a code
+// change. initCarousel() only reads the DOM once, so it must run after
+// these slides are inserted - never before.
+function heroSlide(banner, isActive) {
+  const primaryCta =
+    banner.cta_label && banner.link_url
+      ? `<a class="btn btn--on-brand" href="${escapeHtml(banner.link_url)}">${escapeHtml(banner.cta_label)}</a>`
+      : '';
+  const secondaryCta =
+    banner.secondary_cta_label && banner.secondary_cta_url
+      ? `<a class="btn btn--ghost-light" href="${escapeHtml(banner.secondary_cta_url)}">${escapeHtml(banner.secondary_cta_label)}</a>`
+      : '';
+
+  return `
+    <div class="home-hero__slide${isActive ? ' is-active' : ''}" data-carousel-slide>
+      <div class="home-hero__copy">
+        ${banner.eyebrow ? `<span class="home-hero__eyebrow">${escapeHtml(banner.eyebrow)}</span>` : ''}
+        <h1 class="home-hero__title">${escapeHtml(banner.title || '')}</h1>
+        ${banner.subtitle ? `<p class="home-hero__text">${escapeHtml(banner.subtitle)}</p>` : ''}
+        ${primaryCta || secondaryCta ? `<div class="home-hero__actions">${primaryCta}${secondaryCta}</div>` : ''}
+      </div>
+      <div class="home-hero__media">
+        <img src="${escapeHtml(banner.image_url)}" alt="${escapeHtml(banner.title || '')}" width="420" height="420" loading="${isActive ? 'eager' : 'lazy'}" />
+      </div>
+    </div>`;
+}
+
+async function renderHero() {
+  const heroRoot = document.querySelector('[data-carousel]');
+  const slidesEl = document.querySelector('[data-hero-slides]');
+  if (!heroRoot || !slidesEl) return;
+
+  try {
+    const banners = await api.get('/api/banners?position=home_hero');
+    if (banners.length) {
+      slidesEl.innerHTML = banners.map((banner, i) => heroSlide(banner, i === 0)).join('');
+    }
+  } catch {
+    // Keep whatever was already there (nothing, since there's no static
+    // fallback markup) rather than throwing and blocking the rest of init().
+  }
+
+  initCarousel(heroRoot);
+}
+
 // ---------------------------------------------------------------- categories
 // The rail, the icon grid and the two tiles beside the hero are three views
 // of one /api/categories response.
@@ -136,7 +183,7 @@ async function renderCategoryTiles(container, categories) {
       }
 
       const art = product?.image_url
-        ? `<img src="${escapeHtml(product.image_url)}" alt="" width="104" height="104" loading="lazy" />`
+        ? `<img src="${escapeHtml(product.image_url)}" alt="" width="96" height="96" loading="lazy" />`
         : '';
 
       return `
@@ -259,6 +306,7 @@ async function renderHomeBlogPosts() {
   }
 }
 
+renderHero();
 renderCategories();
 renderCoupons();
 renderDeals();
@@ -266,6 +314,3 @@ loadFeatured('featured=true');
 wireFeaturedTabs();
 renderHomeBlogPosts();
 observeReveal();
-
-const carouselRoot = document.querySelector('[data-carousel]');
-if (carouselRoot) initCarousel(carouselRoot);

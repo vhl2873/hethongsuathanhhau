@@ -102,12 +102,14 @@ adminProductsRouter.post('/', async (req, res, next) => {
     // work (see server/supabase/schema.sql) - auto-create a default one so
     // an admin who doesn't care about variants isn't forced to think about
     // them, matching the "unified inventory model" decision from planning.
+    // stock_quantity comes from the "Tồn kho ban đầu" field on the create
+    // form so a new product isn't stuck at 0 until someone edits the variant.
     const { error: variantError } = await supabaseAdmin.from('product_variants').insert({
       product_id: product.id,
       name: 'Mặc định',
       sku: `SKU-${product.id}-DEFAULT`,
       price: base_price,
-      stock_quantity: 0,
+      stock_quantity: Math.max(0, Number(req.body.stock_quantity) || 0),
     });
     if (variantError) {
       await supabaseAdmin.from('products').delete().eq('id', product.id);

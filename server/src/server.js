@@ -7,6 +7,7 @@ import cors from 'cors';
 import { supabaseAdmin } from './lib/supabaseAdmin.js';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
 import { categoriesRouter } from './routes/categories.js';
+import { bannersRouter } from './routes/banners.js';
 import { settingsRouter } from './routes/settings.js';
 import { couponsRouter } from './routes/coupons.js';
 import { productsRouter } from './routes/products.js';
@@ -53,6 +54,7 @@ app.use(cors({ origin: CORS_ORIGINS.length ? CORS_ORIGINS : true }));
 app.use(express.json());
 
 app.use('/api/categories', categoriesRouter);
+app.use('/api/banners', bannersRouter);
 app.use('/api/settings', settingsRouter);
 app.use('/api/coupons', couponsRouter);
 app.use('/api/products', productsRouter);

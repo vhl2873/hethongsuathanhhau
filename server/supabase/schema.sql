@@ -302,8 +302,13 @@ create index idx_posts_published on public.posts(is_published, published_at desc
 create table public.banners (
   id bigserial primary key,
   title text,
+  eyebrow text,
+  subtitle text,
   image_url text not null,
   link_url text,
+  cta_label text,
+  secondary_cta_label text,
+  secondary_cta_url text,
   position text not null,
   sort_order int not null default 0,
   is_active boolean not null default true,

@@ -183,6 +183,15 @@ async function renderDetail(productId) {
             <input class="input" type="number" min="0" id="p-compare" name="compare_at_price" value="${product?.compare_at_price ?? ''}" />
           </div>
         </div>
+        ${
+          product
+            ? ''
+            : `
+        <div class="field">
+          <label class="field__label" for="p-stock">Tồn kho ban đầu</label>
+          <input class="input" type="number" min="0" id="p-stock" name="stock_quantity" value="0" />
+        </div>`
+        }
         <div class="field">
           <label class="field__label" for="p-short">Mô tả ngắn</label>
           <input class="input" id="p-short" name="short_description" value="${escapeHtml(product?.short_description || '')}" />
@@ -294,6 +303,8 @@ function wireProductForm(product) {
     // New products must ship with at least one real image - no fake/blank
     // placeholder products in the catalog.
     if (!product) {
+      payload.stock_quantity = Number(formData.get('stock_quantity')) || 0;
+
       const files = Array.from(imagesInput.files);
       if (!files.length) {
         const errorEl = root.querySelector('[data-error="images"]');

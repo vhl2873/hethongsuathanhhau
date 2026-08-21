@@ -26,8 +26,13 @@ function validateBannerInput(body) {
 function bannerPayload(body) {
   return {
     title: body.title || null,
+    eyebrow: body.eyebrow || null,
+    subtitle: body.subtitle || null,
     image_url: body.image_url,
     link_url: body.link_url || null,
+    cta_label: body.cta_label || null,
+    secondary_cta_label: body.secondary_cta_label || null,
+    secondary_cta_url: body.secondary_cta_url || null,
     position: body.position,
     sort_order: Number(body.sort_order) || 0,
     is_active: body.is_active ?? true,
