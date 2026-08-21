@@ -44,11 +44,14 @@ function photoFor(name) {
   return found?.src || null;
 }
 
-function categoryIcon(name) {
-  const photo = photoFor(name);
+// Admin-uploaded image_url wins (it's what the "Ảnh danh mục" field in
+// admin/categories.html sets); the bundled default photos are just a
+// fallback for categories nobody has customised yet.
+function categoryIcon(category) {
+  const photo = category.image_url || photoFor(category.name);
   const inner = photo
     ? `<img src="${escapeHtml(photo)}" alt="" width="56" height="56" loading="lazy" />`
-    : `<svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">${iconFor(name)}</svg>`;
+    : `<svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">${iconFor(category.name)}</svg>`;
   return `<span class="cat-grid__icon" aria-hidden="true">${inner}</span>`;
 }
 
@@ -104,7 +107,7 @@ async function renderCategories() {
       .map(
         (category) => `
         <a class="cat-grid__item" href="${shopHref(category.slug)}">
-          ${categoryIcon(category.name)}
+          ${categoryIcon(category)}
           <span class="cat-grid__name">${escapeHtml(category.name)}</span>
         </a>`,
       )

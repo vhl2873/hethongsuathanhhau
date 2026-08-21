@@ -12,6 +12,24 @@ const formPanel = document.querySelector('[data-category-form-panel]');
 const form = document.querySelector('[data-category-form]');
 const formError = document.querySelector('[data-category-form-error]');
 const formHeading = document.querySelector('[data-category-form-heading]');
+const imageFileInput = document.querySelector('#cat-image-file');
+const imagePreview = document.querySelector('[data-category-image-preview]');
+const imageError = document.querySelector('[data-category-image-error]');
+
+// Uploads a single image file to Supabase Storage via the admin API and
+// returns its public URL. Never uploads directly from the browser to
+// Storage - always goes through the server so the service-role key stays
+// server-side and requireAdmin gates who can write to the bucket.
+async function uploadImageFile(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  const result = await api.post('/api/admin/storage/upload', formData, { token });
+  return result.url;
+}
+
+function renderImagePreview(url) {
+  imagePreview.innerHTML = url ? `<div class="admin-image-item"><img src="${escapeHtml(url)}" alt="" width="64" height="64" /></div>` : '';
+}
 
 function parentName(category) {
   if (!category.parent_id) return '-';
@@ -25,6 +43,10 @@ function render() {
     getRowId: (c) => c.id,
     emptyMessage: 'Chưa có danh mục nào.',
     columns: [
+      {
+        label: 'Ảnh',
+        render: (c) => (c.image_url ? `<img src="${escapeHtml(c.image_url)}" alt="" width="40" height="40" style="border-radius:8px;object-fit:cover" />` : '-'),
+      },
       { key: 'name', label: 'Tên danh mục' },
       { key: 'slug', label: 'Slug' },
       { label: 'Danh mục cha', render: parentName },
@@ -50,12 +72,15 @@ function render() {
 function showForm(category) {
   formPanel.hidden = false;
   formError.hidden = true;
+  imageError.textContent = '';
+  imageFileInput.value = '';
   formHeading.textContent = category ? 'Sửa danh mục' : 'Thêm danh mục mới';
   form.elements.categoryId.value = category?.id || '';
   form.elements.name.value = category?.name || '';
   form.elements.slug.value = category?.slug || '';
   form.elements.description.value = category?.description || '';
   form.elements.image_url.value = category?.image_url || '';
+  renderImagePreview(category?.image_url || '');
   form.elements.parent_id.innerHTML =
     '<option value="">— Không có —</option>' +
     categories
@@ -92,6 +117,26 @@ async function handleDelete(id) {
     window.alert('Không xoá được danh mục, vui lòng thử lại.');
   }
 }
+
+imageFileInput.addEventListener('change', async () => {
+  const file = imageFileInput.files[0];
+  if (!file) return;
+
+  imageError.textContent = '';
+  imageFileInput.disabled = true;
+  renderImagePreview(URL.createObjectURL(file));
+
+  try {
+    const url = await uploadImageFile(file);
+    form.elements.image_url.value = url;
+    renderImagePreview(url);
+  } catch (err) {
+    imageError.textContent = err instanceof ApiError ? err.message : 'Không tải ảnh lên được, vui lòng thử lại.';
+    renderImagePreview(form.elements.image_url.value);
+  } finally {
+    imageFileInput.disabled = false;
+  }
+});
 
 document.querySelector('[data-add-category]').addEventListener('click', () => showForm(null));
 document.querySelector('[data-cancel-category]').addEventListener('click', () => {

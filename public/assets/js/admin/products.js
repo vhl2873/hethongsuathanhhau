@@ -70,6 +70,10 @@ async function loadList() {
       getRowId: (p) => p.id,
       emptyMessage: 'Chưa có sản phẩm nào.',
       columns: [
+        {
+          label: 'Ảnh',
+          render: (p) => (p.image_url ? `<img src="${escapeHtml(p.image_url)}" alt="" width="40" height="40" style="border-radius:8px;object-fit:cover" />` : '-'),
+        },
         { key: 'name', label: 'Tên sản phẩm' },
         { label: 'Danh mục', render: (p) => p.category_name || '-' },
         { label: 'Giá', render: (p) => formatCurrency(p.base_price) },

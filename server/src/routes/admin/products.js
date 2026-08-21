@@ -19,7 +19,7 @@ adminProductsRouter.get('/', async (req, res, next) => {
     let query = supabaseAdmin
       .from('products')
       .select(
-        'id, name, slug, base_price, is_active, is_featured, category:categories(name), product_variants(id, stock_quantity)',
+        'id, name, slug, base_price, is_active, is_featured, category:categories(name), product_variants(id, stock_quantity), product_images(url, is_primary)',
         { count: 'exact' },
       )
       .order('created_at', { ascending: false })
@@ -30,16 +30,21 @@ adminProductsRouter.get('/', async (req, res, next) => {
     const { data, error, count } = await query;
     if (error) throw new AppError('PRODUCTS_FETCH_FAILED', 'Không tải được danh sách sản phẩm.', 500);
 
-    const items = data.map((p) => ({
-      id: p.id,
-      name: p.name,
-      slug: p.slug,
-      base_price: p.base_price,
-      is_active: p.is_active,
-      is_featured: p.is_featured,
-      category_name: p.category?.name || null,
-      total_stock: (p.product_variants || []).reduce((sum, v) => sum + v.stock_quantity, 0),
-    }));
+    const items = data.map((p) => {
+      const images = p.product_images || [];
+      const primaryImage = images.find((img) => img.is_primary) || images[0];
+      return {
+        id: p.id,
+        name: p.name,
+        slug: p.slug,
+        base_price: p.base_price,
+        is_active: p.is_active,
+        is_featured: p.is_featured,
+        category_name: p.category?.name || null,
+        total_stock: (p.product_variants || []).reduce((sum, v) => sum + v.stock_quantity, 0),
+        image_url: primaryImage?.url || null,
+      };
+    });
 
     res.json({ data: items, pagination: { page, limit, total: count ?? 0, totalPages: Math.ceil((count ?? 0) / limit) } });
   } catch (err) {
